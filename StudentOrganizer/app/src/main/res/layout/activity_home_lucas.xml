@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/cards_go_here"
-    tools:context="edu.group7.csc415.studentorganizer.Home">
+    tools:context="edu.group7.csc415.studentorganizer.LucasHome">
 
     <TextView
         android:layout_width="wrap_content"
