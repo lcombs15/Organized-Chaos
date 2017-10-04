@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
-public class HomePage extends Activity implements View.OnClickListener  {
+public class HomePage extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     //define variables for the widgets
     private Spinner quickAcccessSpinner;
     private LinearLayout buttonLayout;
@@ -39,6 +41,7 @@ public class HomePage extends Activity implements View.OnClickListener  {
         //set the Listeners
         defaultButton1.setOnClickListener(this);
         defaultButton2.setOnClickListener(this);
+        quickAcccessSpinner.setOnItemSelectedListener(this);
 
         //create array adapter for Spinner
         ArrayAdapter<CharSequence> spinnerAdapter =
@@ -73,20 +76,24 @@ public class HomePage extends Activity implements View.OnClickListener  {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.default_button_1:
-                //insert functionality
+                Toast.makeText(this, "Default Button 1 clicked", Toast.LENGTH_LONG).show();
                 break;
             case R.id.default_button_2:
-                //insert functionality
+                Toast.makeText(this, "Default Button 2 clicked", Toast.LENGTH_LONG).show();
                 break;
         } //end switch
     }
 
-    public int getSpinnerItem() {
-        return quickAcccessSpinner.getSelectedItemPosition();
-    }
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // On selecting a spinner item
+        String item = parent.getItemAtPosition(position).toString();
 
-    public String getSpinnerText(){
-        return (String)quickAcccessSpinner.getSelectedItem();
+        // Showing selected spinner item
+        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+    }
+    public void onNothingSelected(AdapterView<?> arg0) {
+        // Insert Code
     }
 }
 
