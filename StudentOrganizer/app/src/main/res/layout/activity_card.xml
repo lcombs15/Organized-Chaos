@@ -1,35 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.v7.widget.LinearLayoutCompat
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="layout.templates.cards"
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#AFFFF8"
-    android:minHeight="50dp">
-    <ImageView
-        android:id="@+id/card_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitCenter"
-        android:minHeight="50dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
+    android:padding="5dp"
+    android:background="@color/themeColorRelaxed"
+    android:minHeight="50dp"
+    android:orientation="vertical"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/card_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:minHeight="50dp"
+            android:minWidth="50dp"
+            />
+        <TextView
+            android:id="@+id/card_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/themeColorDark"
+            android:text="Title Here"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_toRightOf="@id/card_image"/>
+        <TextView
+            android:id="@+id/card_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Details Here"
+            android:textSize="15sp"
+            android:textColor="#ffffff"
+            android:layout_toRightOf="@id/card_image"
+            android:layout_below="@id/card_title"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/card_dueDate"
         android:minWidth="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:textSize="10sp"
         />
-    <TextView
-        android:id="@+id/card_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Title Here"
-        android:textSize="20dp"
-        android:layout_toRightOf="@id/card_image"/>
-    <TextView
-        android:id="@+id/card_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Details Here"
-        android:textSize="10dp"
-        android:layout_toRightOf="@id/card_image"
-        android:layout_below="@id/card_title"/>
-</RelativeLayout>
+</android.support.v7.widget.LinearLayoutCompat>
