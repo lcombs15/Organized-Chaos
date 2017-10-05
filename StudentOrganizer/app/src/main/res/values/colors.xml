@@ -3,4 +3,17 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+
+    <!--
+    https://coolors.co/353531-1f7a8c-ec4e20-ff9505-000000
+    -->
+    <color name="themeColorLight">#88CCF1</color>
+    <color name="themeColorRelaxed">#1F7A8C</color>
+    <color name="themeColorLighter">#C1Dff0</color>
+    <color name="themeColorMellow">#FF9505</color>
+    <color name="themeColorDark">#000000</color>
+
+
+
 </resources>

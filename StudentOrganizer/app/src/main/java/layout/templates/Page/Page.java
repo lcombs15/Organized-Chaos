@@ -1,3 +1,5 @@
+package layout.templates.Page;
+
 import android.widget.LinearLayout;
 import javax.sql.DataSource;
 
