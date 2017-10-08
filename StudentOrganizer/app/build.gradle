@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "26.0.1"
     defaultConfig {
-        applicationId "edu.group7.csc415.studentorganizer"
+        applicationId "com.example.matt.course_page_shell"
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1

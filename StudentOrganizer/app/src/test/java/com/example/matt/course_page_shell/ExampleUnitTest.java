@@ -1,4 +1,4 @@
-package edu.group7.csc415.studentorganizer;
+package com.example.matt.course_page_shell;
 
 import org.junit.Test;
 
