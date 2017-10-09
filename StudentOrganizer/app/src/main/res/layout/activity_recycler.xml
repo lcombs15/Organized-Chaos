@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="10dp"
     android:background="@color/themeColorLighter"
-    tools:context="edu.group7.csc415.studentorganizer.Home">
+    tools:context="edu.group7.csc415.studentorganizer.RecyclerHome">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view"
