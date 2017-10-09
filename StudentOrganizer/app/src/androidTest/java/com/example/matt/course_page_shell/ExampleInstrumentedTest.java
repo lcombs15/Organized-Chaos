@@ -1,4 +1,4 @@
-package edu.group7.csc415.studentorganizer;
+package com.example.matt.course_page_shell;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("edu.group7.csc415.studentorganizer", appContext.getPackageName());
+        assertEquals("com.example.matt.course_page_shell", appContext.getPackageName());
     }
 }

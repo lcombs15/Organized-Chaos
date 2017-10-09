@@ -1,3 +1,26 @@
 <resources>
-    <string name="app_name">Student Organizer</string>
+    <string name="app_name">CSC 415</string>
+    <string name="course_name">Android Mobile App Development</string>
+    <string name="edit_course_name_buttonLabel">Edit</string>
+    <string name="time_label">Time:</string>
+    <string name="course_start_time_editText">7:30 PM</string>
+    <string name="course_end_time_editText">9:00 PM</string>
+    <string name="location_label">Location</string>
+    <string name="course_location_editText">GH 250</string>
+    <string name="tasks_label">Tasks</string>
+    <string name="course_task1_text">Project 1</string>
+    <string name="course_task2_text">Lab 2</string>
+    <string name="course_task3_text">Project 2</string>
+    <string name="course_task4_text">Midterm 1</string>
+    <string name="tasks_date_label">Due Date</string>
+    <string name="course_task1_dateLabel">9/24/2017 – 11:59 PM</string>
+    <string name="course_task2_dateLabel">10/1/2017 – 11:59 PM</string>
+    <string name="course_task3_dateLabel">TBD</string>
+    <string name="course_task4_dateLabel">TBD</string>
+    <string-array name="navigation_array">
+        <item>Feed</item>
+        <item>My Courses</item>
+        <item>Reminders</item>
+        <item>My Schedule</item>
+    </string-array>
 </resources>
