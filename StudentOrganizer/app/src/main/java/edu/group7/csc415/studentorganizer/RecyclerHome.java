@@ -12,7 +12,7 @@ import java.util.List;
 
 import layout.templates.Page.*; //We're at some point or another going to need everything in here
 
-public class Home extends AppCompatActivity {
+public class RecyclerHome extends AppCompatActivity {
     private List<Card> CardList = new ArrayList<>();
     private RecyclerView recyclerView;
     private CardAdapter cAdapter;
