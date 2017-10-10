@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Final_Add_Item_Screen</string>
+    <string name="event_type_text">Event Type</string>
+    <string name="time_text">Time</string>
+    <string name="description">Description</string>
+    <string name="name">Name</string>
+    <string name="course">Course</string>
+    <string name="submit">Submit</string>
+    <string-array name="types_array">
+        <item>Select Type</item>
+        <item>Course</item>
+        <item>Task</item>
+        <item>Reminder</item>
+    </string-array>
+</resources>
