@@ -23,4 +23,26 @@
         <item>Reminders</item>
         <item>My Schedule</item>
     </string-array>
+
+
+    <string name="event_type_text">Event Type</string>
+    <string name="time_text">Time</string>
+    <string name="description">Description</string>
+    <string name="name">Name</string>
+    <string name="course">Course</string>
+    <string name="submit">Submit</string>
+    <string-array name="types_array">
+        <item>Select Type</item>
+        <item>Course</item>
+        <item>Task</item>
+        <item>Reminder</item>
+    </string-array>
+
+    <string-array name="quick_access_array">
+        <item>Today Feed</item>
+        <item>My Courses</item>
+        <item>Reminders</item>
+        <item>To Do List</item>
+        <item>My Calendar</item>
+    </string-array>
 </resources>

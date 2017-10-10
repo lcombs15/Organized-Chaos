@@ -1,4 +1,4 @@
-package com.csc515.edwards.studentorganizer;
+package edu.group7.csc415.studentorganizer;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
