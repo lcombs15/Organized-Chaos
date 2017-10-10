@@ -1,4 +1,4 @@
-package com.example.matt.course_page_shell;
+package edu.group7.csc415.studentorganizer;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import edu.group7.csc415.studentorganizer.R;
 
 public class course_page_shell extends AppCompatActivity implements OnClickListener{
 

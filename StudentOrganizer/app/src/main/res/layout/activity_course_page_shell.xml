@@ -7,7 +7,7 @@
     android:layout_margin="12dp"
     android:orientation="vertical"
     android:screenOrientation="portrait"
-    tools:context="com.example.matt.course_page_shell.course_page_shell">
+    tools:context=".course_page_shell">
 
     <Spinner
         android:id="@+id/quick_access_spinner"

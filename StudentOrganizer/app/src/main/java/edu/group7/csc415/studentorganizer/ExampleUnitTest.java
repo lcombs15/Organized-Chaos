@@ -1,4 +1,4 @@
-package com.example.matt.course_page_shell;
+package edu.group7.csc415.studentorganizer;
 
 import org.junit.Test;
 
@@ -12,6 +12,6 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
+        Assert.assertEquals(4, 2 + 2);
     }
 }

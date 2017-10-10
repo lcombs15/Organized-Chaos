@@ -1,4 +1,4 @@
-package com.example.matt.course_page_shell;
+package edu.group7.csc415.studentorganizer;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
