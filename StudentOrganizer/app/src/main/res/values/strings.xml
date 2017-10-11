@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CSC 415</string>
+    <string name="app_name">Student Organizer</string>
     <string name="course_name">Android Mobile App Development</string>
     <string name="edit_course_name_buttonLabel">Edit</string>
     <string name="time_label">Time:</string>
