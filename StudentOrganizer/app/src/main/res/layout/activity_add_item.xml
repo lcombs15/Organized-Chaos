@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="edu.group7.csc415.studentorganizer.AddItemActivity"
     android:orientation="vertical"
-    android:background="@color/themeColorLighter"
+    android:background="@color/themeColorLight"
     android:padding="10dp"
     >
 
