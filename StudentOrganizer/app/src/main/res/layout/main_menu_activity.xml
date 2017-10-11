@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,7 +9,6 @@
     android:background="@color/themeColorLighter"
     android:orientation="vertical"
     tools:context="edu.group7.csc415.studentorganizer.MainMenu">
-
     <android.support.v7.widget.AppCompatSpinner
         android:id="@+id/navigationSpinner"
         android:layout_width="match_parent"

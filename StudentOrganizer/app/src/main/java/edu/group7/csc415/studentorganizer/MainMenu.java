@@ -1,5 +1,6 @@
 package edu.group7.csc415.studentorganizer;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,9 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +18,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -45,7 +50,7 @@ public class MainMenu extends AppCompatActivity{
         setContentView(R.layout.main_menu_activity);
 
         setupSpinner();
-
+        setupActionBar();
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
         cAdapter = new CardAdapter(CardList);
@@ -73,6 +78,26 @@ public class MainMenu extends AppCompatActivity{
             Card c = new Card("Card #" + i,"Card description goes here!",new Date(),null);
             CardList.add(c);
         }
+    }
+
+    private void setupActionBar(){
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_bar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        /* TODO
+        Intent menu = new Intent(getApplicationContext(),item.getActionView().getClass());
+        startActivity(menu);
+        */
+        return true;
     }
 
     private void setupSpinner(){
