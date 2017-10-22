@@ -16,11 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddItemActivity"></activity>
-        <activity android:name=".settings"
-            android:parentActivityName=".MainMenu">
-
-        </activity>
+        <activity android:name=".AddItemActivity" />
+        <activity
+            android:name=".settings"
+            android:parentActivityName=".MainMenu"></activity>
+        <activity android:name=".courselisst"></activity>
     </application>
 
 </manifest>
