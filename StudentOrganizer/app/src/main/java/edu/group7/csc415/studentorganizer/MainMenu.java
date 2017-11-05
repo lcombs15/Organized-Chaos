@@ -3,6 +3,8 @@ package edu.group7.csc415.studentorganizer;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -43,7 +45,9 @@ public class MainMenu extends AppCompatActivity{
     private List<Card> CardList = new ArrayList<>();
     private RecyclerView recyclerView;
     private CardAdapter cAdapter;
-    
+
+    private DBHelper mydb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +63,24 @@ public class MainMenu extends AppCompatActivity{
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(cAdapter);
 
+        mydb = new DBHelper(this);
+        boolean firstEntries = savedValues.getBoolean("FirstEntries", false);
+        if (firstEntries == false) {
+            mydb.insertActivity("Android Final", "Finish the app for the final project in Android Development.");
+            mydb.insertActivity("Register Classes", "Register classes for next semester.");
+            if (mydb.insertActivity("Text Lucas", "If this worked, text Lucas that SQLite is working.")) {
+                Toast.makeText(this, "done", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(this, "not working", Toast.LENGTH_SHORT).show();
+            }
+
+            savedValues.edit().putBoolean("FirstEntries", true).commit();
+        }
+        else {
+            savedValues.edit().putBoolean("FirstEntries", true).commit();
+        }
+
         prepareCardData();
 
         final Button circleAddButton = (Button) findViewById(R.id.addItemButton);
@@ -69,13 +91,28 @@ public class MainMenu extends AppCompatActivity{
                 startActivity(i);
             }
         });
-
     }
 
     private void prepareCardData(){
 
+        int numRows = mydb.numberOfRows();
         for(int i = 1; i <= 100; i++){
-            Card c = new Card("Card #" + i,"Card description goes here!",new Date(),null);
+            Card c;
+            if (i <= numRows) {
+                Cursor result = mydb.getData(i);
+                result.moveToFirst();
+
+                String title = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_TITLE));
+                String desc = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_DESCRIPTION));
+                if (!result.isClosed()) {
+                    result.close();
+                }
+                c = new Card(title, desc, new Date(), null);
+            }
+            else {
+                c = new Card("Card #" + i,"Card description goes here!",new Date(),null);
+            }
+            //Card c = new Card("Card #" + i,"Card description goes here!",new Date(),null);
             CardList.add(c);
         }
     }
