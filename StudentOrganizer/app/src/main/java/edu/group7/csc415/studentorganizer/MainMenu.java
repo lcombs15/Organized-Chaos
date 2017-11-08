@@ -1,10 +1,8 @@
 package edu.group7.csc415.studentorganizer;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -20,7 +18,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -64,24 +61,10 @@ public class MainMenu extends AppCompatActivity{
         recyclerView.setAdapter(cAdapter);
 
         mydb = new DBHelper(this);
-        boolean firstEntries = savedValues.getBoolean("FirstEntries", false);
-        if (firstEntries == false) {
-            mydb.insertActivity("Android Final", "Finish the app for the final project in Android Development.");
-            mydb.insertActivity("Register Classes", "Register classes for next semester.");
-            if (mydb.insertActivity("Text Lucas", "If this worked, text Lucas that SQLite is working.")) {
-                Toast.makeText(this, "done", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                Toast.makeText(this, "not working", Toast.LENGTH_SHORT).show();
-            }
-
-            savedValues.edit().putBoolean("FirstEntries", true).commit();
-        }
-        else {
-            savedValues.edit().putBoolean("FirstEntries", true).commit();
-        }
+        prepopulateDB();
 
         prepareCardData();
+
 
         final Button circleAddButton = (Button) findViewById(R.id.addItemButton);
         circleAddButton.setOnClickListener(new View.OnClickListener() {
@@ -93,13 +76,40 @@ public class MainMenu extends AppCompatActivity{
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        cAdapter.clear();
+        prepareCardData();
+    }
+
+    private void prepopulateDB() {
+        boolean firstEntries = savedValues.getBoolean("FirstEntries", false);
+        if (firstEntries == false) {
+            mydb.insertActivity("Android Final", "Finish the app for the final project in Android Development.");
+            mydb.insertActivity("Register Classes", "Register classes for next semester.");
+            if (mydb.insertActivity("Text Lucas", "If this worked, text Lucas that SQLite is working.")) {
+                Toast.makeText(this, "done", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(this, "not working", Toast.LENGTH_SHORT).show();
+            }
+
+            savedValues.edit().putBoolean("FirstEntries", true).apply();
+        }
+        else {
+            savedValues.edit().putBoolean("FirstEntries", true).apply();
+        }
+    }
+
     private void prepareCardData(){
 
         int numRows = mydb.numberOfRows();
         for(int i = 1; i <= 100; i++){
             Card c;
             if (i <= numRows) {
-                Cursor result = mydb.getData(i);
+                Cursor result = mydb.getActivity(i);
                 result.moveToFirst();
 
                 String title = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_TITLE));

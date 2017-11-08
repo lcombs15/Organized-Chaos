@@ -15,6 +15,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "StudentOrganizer.db";
+    public static final int DB_VERSION = 20171106_01; //Year(4) Month(2) Day(2) _ Update Number of day(2)
     public static final String ACTIVITIES_TABLE_NAME = "activities";
     public static final String ACTIVITIES_COLUMN_ID = "id";
     public static final String ACTIVITIES_COLUMN_TITLE = "title";
@@ -26,8 +27,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + ACTIVITIES_TABLE_NAME +
-                    "(id integer primary key, title text, description text)");
+        db.execSQL("create table " + ACTIVITIES_TABLE_NAME + " (" +
+                ACTIVITIES_COLUMN_ID + " integer primary key autoincrement, " +
+                ACTIVITIES_COLUMN_TITLE + " text, " +
+                ACTIVITIES_COLUMN_DESCRIPTION + " text)");
+        //db.execSQL("create table " + ACTIVITIES_TABLE_NAME + " (id integer primary key autoincrement, title text, description text)");
     }
 
     @Override
@@ -45,10 +49,26 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public Cursor getData(int id) {
+    public boolean updateActivity(int id, String title, String description) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ACTIVITIES_COLUMN_TITLE, title);
+        contentValues.put(ACTIVITIES_COLUMN_DESCRIPTION, description);
+        db.update(ACTIVITIES_TABLE_NAME, contentValues, ACTIVITIES_COLUMN_ID + " = ? ", new String[] {Integer.toString(id) });
+        return true;
+    }
+
+    public int deleteActivity (int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(ACTIVITIES_TABLE_NAME, ACTIVITIES_COLUMN_ID + " = ? ", new String[] { Integer.toString(id) });
+    }
+
+    public Cursor getActivity(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         String idString = Integer.toString(id);
-        Cursor result = db.rawQuery("SELECT * FROM " + ACTIVITIES_TABLE_NAME + " WHERE id="+idString, null);
+        Cursor result = db.rawQuery("SELECT * FROM " + ACTIVITIES_TABLE_NAME + " WHERE " + ACTIVITIES_COLUMN_ID + "="+idString, null);
+        //query(table, columns, where, whereArgs, groupBy, having, orderBy) -- Better method. Does its own cleaning to prevent SQL injects.
+        //Cursor result = db.rawQuery("SELECT * FROM " + ACTIVITIES_TABLE_NAME + " WHERE id="+idString, null);
         return result;
     }
 
