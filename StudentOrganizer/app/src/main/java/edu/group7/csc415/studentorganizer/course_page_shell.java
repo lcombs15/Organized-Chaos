@@ -47,10 +47,10 @@ public class course_page_shell extends AppCompatActivity implements OnClickListe
         task3 = (Button) findViewById(R.id.course_task3_button);
         task4 = (Button) findViewById(R.id.course_task4_button);
 
-        courseNameText.setEnabled(false);
-        startTimeText.setEnabled(false);
-        endTimeText.setEnabled(false);
-        locationText.setEnabled(false);
+        //courseNameText.setEnabled(false);
+        //startTimeText.setEnabled(false);
+        //endTimeText.setEnabled(false);
+        //locationText.setEnabled(false);
 
         editButton.setOnClickListener(this);
         task1.setOnClickListener(this);

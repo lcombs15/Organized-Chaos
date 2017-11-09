@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    android:background="@color/themeColorLighter"
     android:orientation="vertical"
     tools:context="edu.group7.csc415.studentorganizer.MainMenu">
     <android.support.v7.widget.AppCompatSpinner

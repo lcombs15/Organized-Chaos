@@ -46,4 +46,9 @@
         <item>My Calendar</item>
     </string-array>
     <string name="title_activity_settings">settings</string>
+    <string name="course0">CSC 415</string>
+    <string name="course1">CSC 201</string>
+    <string name="course2">INF 286</string>
+    <string name="course3">BIS 111</string>
+    <string name="course4">MAT 385</string>
 </resources>

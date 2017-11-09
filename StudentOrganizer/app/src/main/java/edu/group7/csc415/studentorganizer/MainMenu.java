@@ -116,6 +116,26 @@ public class MainMenu extends AppCompatActivity{
 
                 // Showing selected spinner item
                 Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+                final Intent intent;
+                switch(item) {
+                    case "My Feed":
+                        intent = new Intent(MainMenu.this, course_list_activity.class);
+                        startActivity(intent);
+                        break;
+                    case "My Courses":
+                        intent = new Intent(MainMenu.this, course_list_activity.class);
+                        startActivity(intent);
+                        break;
+                    case "Reminders":
+                        /* Open reminders feed */
+                        break;
+                    case "To Do List":
+                        /* open to do list */
+                        break;
+                    case "My Calendar":
+                        /* Open schedule/calendar */
+                        break;
+                }
             }
 
             @Override
