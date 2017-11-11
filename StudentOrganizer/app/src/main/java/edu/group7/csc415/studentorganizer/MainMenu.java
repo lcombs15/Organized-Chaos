@@ -1,6 +1,5 @@
 package edu.group7.csc415.studentorganizer;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -18,13 +17,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import layout.templates.Page.*; //We're at some point or another going to need everything in here
+import Cards.Card;
+import Cards.CardAdapter;
 
 public class MainMenu extends AppCompatActivity{
     //define variables for the widgets

@@ -1,4 +1,4 @@
-package layout.templates.Page;
+package Cards;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.Console;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import edu.group7.csc415.studentorganizer.R;

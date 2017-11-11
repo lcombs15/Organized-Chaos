@@ -1,4 +1,4 @@
-package layout.templates.Page;
+package Cards;
 
 import android.widget.LinearLayout;
 import javax.sql.DataSource;
