@@ -1,5 +1,9 @@
 package Cards;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +22,10 @@ import edu.group7.csc415.studentorganizer.R;
  *
  * Basically this is where data held in our Card wrapper class meets XML
  */
-public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> {
+public abstract class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> {
 
     //Store a list of simple Card objects
-    private List<Card> CardsList;
+    protected List<Card> CardsList;
 
     //Constructor, pretty simple, takes a list of Cards to send to screen
     public CardAdapter(List<Card> CardsList) {
@@ -60,22 +64,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
     //Step 3
     //Wire values from Card wrapper class to widgets
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        Card c = CardsList.get(position);
-        holder.title.setText(c.getTitle());
-        holder.description.setText(c.getDescription());
-        // TODO fix this to handle null \
-        holder.icon.setImageResource(R.mipmap.ic_launcher_round);
-        //TODO This is probably going to need some sort of date format
-
-        try {
-            SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy h:mm");
-            holder.dueDate.setText(DATE_FORMAT.format(c.getDueDate()).toString());
-        }catch (Exception e){
-            holder.dueDate.setText("error");
-        }
-
-    }
+    abstract public void onBindViewHolder(MyViewHolder holder, int position);
 
 
     /*This is a method we're forced to implement,

@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -55,7 +56,7 @@ public class MainMenu extends AppCompatActivity{
         setupActionBar();
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
-        cAdapter = new CardAdapter(CardList);
+        cAdapter = new TaskCardAdapter(CardList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -183,5 +184,47 @@ public class MainMenu extends AppCompatActivity{
         //set the adapter for the spinner and initialize position
         quickAcccessSpinner.setAdapter(spinnerAdapter);
         quickAcccessSpinner.setSelection(0);
+    }
+
+    /*
+        To prevent code duplication I have made the CardAdapter class abstract.
+
+        We will have to make another inner class, like this one, any time we want to change the onClick method of the cards
+        You only need to have a constructor and override the onBindViewHolder
+     */
+    private class TaskCardAdapter extends CardAdapter{
+
+        public TaskCardAdapter(List<Card> CardsList) {
+            super(CardsList);
+        }
+
+        @Override
+        public void onBindViewHolder(MyViewHolder holder, int position) {
+            //Needs to be final if onClick is going to use it
+            final Card c = super.CardsList.get(position);
+
+            //Bind all fields in Card XML to data
+            holder.title.setText(c.getTitle());
+            holder.description.setText(c.getDescription());
+
+            // TODO fix this to handle null
+            holder.icon.setImageResource(R.mipmap.ic_launcher_round);
+
+            //Don't error out if DATE_FORMAT is passed a null string
+            try {
+                SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy h:mm");
+                holder.dueDate.setText(DATE_FORMAT.format(c.getDueDate()).toString());
+            }catch (Exception e){
+                holder.dueDate.setText("error");
+            }
+
+            //The almighty onClick for a Card
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(),"TODO: Add On Click....." + c.getTitle().toString(),Toast.LENGTH_LONG).show();
+                }
+            });
+        }
     }
 }
