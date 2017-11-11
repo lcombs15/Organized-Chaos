@@ -81,7 +81,7 @@ public class MainMenu extends AppCompatActivity{
     public void onResume() {
         super.onResume();
 
-        cAdapter.clear();
+        CardList.clear();
         prepareCardData();
     }
 
