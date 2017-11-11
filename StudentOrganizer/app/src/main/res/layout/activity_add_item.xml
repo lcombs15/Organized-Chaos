@@ -52,7 +52,7 @@
             android:textSize="20sp"
             android:id="@+id/nameLabel"/>
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/nameValue" />
     </LinearLayout>
@@ -103,11 +103,23 @@
             android:layout_height="wrap_content"
             android:id="@+id/descriptionValue"/>
     </LinearLayout>
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/submit"/>
+        android:gravity="center">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/clearButton"
+            android:text="@string/clear"
+            android:layout_margin="8dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/enterButton"
+            android:text="@string/submit"
+            android:layout_margin="8dp"/>
+    </LinearLayout>
 
 
 </LinearLayout>
