@@ -168,20 +168,21 @@ public class MainMenu extends AppCompatActivity{
     } //end prepareCardData
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.action_bar, menu);
+
+    public boolean onCreateOptionsMenu (Menu menu) {
+        getMenuInflater().inflate(R.menu.information_activity, menu);
         return true;
-    } //end onCreateOptionsMenu
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        /* TODO
-        Intent menu = new Intent(getApplicationContext(),item.getActionView().getClass());
-        startActivity(menu);
-        */
-        return true;
+        switch (item.getItemId()) {
+            case R.id.menu_settings:
+                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private class TaskCardAdapter extends CardAdapter{
