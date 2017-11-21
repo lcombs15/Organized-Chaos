@@ -17,13 +17,6 @@
     <string name="course_task2_dateLabel">10/1/2017 – 11:59 PM</string>
     <string name="course_task3_dateLabel">TBD</string>
     <string name="course_task4_dateLabel">TBD</string>
-    <string-array name="navigation_array">
-        <item>Feed</item>
-        <item>My Courses</item>
-        <item>Reminders</item>
-        <item>My Schedule</item>
-    </string-array>
-
 
     <string name="event_type_text">Event Type</string>
     <string name="time_text">Time</string>
@@ -41,8 +34,8 @@
     <string-array name="quick_access_array">
         <item>Today Feed</item>
         <item>My Courses</item>
-        <item>Reminders</item>
-        <item>To Do List</item>
+        <!--<item>Reminders</item>
+        <item>To Do List</item>-->
         <item>My Calendar</item>
     </string-array>
     <string name="title_activity_settings">settings</string>

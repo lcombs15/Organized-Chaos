@@ -32,7 +32,7 @@ public class course_page_shell extends AppCompatActivity implements OnClickListe
 
         spinner = (Spinner) findViewById(R.id.quick_access_spinner);
         //Construct ArrayAdapter referencing the string array for spinner options and a default spinner layout
-        adapter = ArrayAdapter.createFromResource(this, R.array.navigation_array, android.R.layout.simple_spinner_item);
+        adapter = ArrayAdapter.createFromResource(this, R.array.quick_access_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
