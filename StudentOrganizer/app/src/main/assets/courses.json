@@ -1,0 +1,42 @@
+[
+  {
+    "courseTag" : "CSC 415",
+    "courseName" : "Android Mobile App Development",
+    "courseLocation" : "GH 250",
+    "courseStart" : "7:30 PM",
+    "courseEnd" : "9:00 PM",
+    "courseDays" : "MW"
+  },
+  {
+    "courseTag" : "CSC 460",
+    "courseName" : "Operating Systems",
+    "courseLocation" : "GH 230",
+    "courseStart" : "1:40 PM",
+    "courseEnd" : "2:55 PM",
+    "courseDays" : "TR"
+  },
+  {
+    "courseTag" : "CSC 439",
+    "courseName" : "Software Testing and Maintenance",
+    "courseLocation" : "GH 250",
+    "courseStart" : "6:15 PM",
+    "courseEnd" : "7:30 PM",
+    "courseDays" : "TR"
+  },
+  {
+    "courseTag" : "CSC 485",
+    "courseName" : "Theory of Computation",
+    "courseLocation" : "GH 250",
+    "courseStart" : "4:40 PM",
+    "courseEnd" : "5:55 PM",
+    "courseDays" : "TR"
+  },
+  {
+    "courseTag" : "MIN 381",
+    "courseName" : "Computer-Mediated Communication",
+    "courseLocation" : "ONLINE",
+    "courseStart" : "12:00 AM",
+    "courseEnd" : "11:59 PM",
+    "courseDays" : "MTWRF"
+  }
+]

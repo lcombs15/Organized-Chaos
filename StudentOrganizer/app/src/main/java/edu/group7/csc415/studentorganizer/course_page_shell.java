@@ -1,33 +1,48 @@
 package edu.group7.csc415.studentorganizer;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.TextView;
 
-import edu.group7.csc415.studentorganizer.R;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-public class course_page_shell extends AppCompatActivity implements OnClickListener{
+import layout.templates.Page.Card;
+import layout.templates.Page.CardAdapter;
 
-    Spinner spinner;
-    ArrayAdapter<CharSequence> adapter;
-    Button editButton;
-    Button task1;
-    Button task2;
-    Button task3;
-    Button task4;
-    EditText courseNameText;
-    EditText startTimeText;
-    EditText endTimeText;
-    EditText locationText;
+/**
+ * Created by Matt on 11/22/2017.
+ */
+
+public class course_page_shell extends Fragment {//AppCompatActivity {
+
+    private List<Card> CardList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private CardAdapter cAdapter;
+
+    private String courseTag;
+    private String courseName;
+    private String courseLocation;
+    private String courseStart;
+    private String courseEnd;
+    private String courseDays;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+<<<<<<< HEAD
         setContentView(R.layout.activity_course_page_shell);
 
         spinner = (Spinner) findViewById(R.id.quick_access_spinner);
@@ -57,29 +72,70 @@ public class course_page_shell extends AppCompatActivity implements OnClickListe
         task2.setOnClickListener(this);
         task3.setOnClickListener(this);
         task4.setOnClickListener(this);
+=======
+        setHasOptionsMenu(true);
+
+        //Load bundle containing information about the skill that should be displayed.
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            courseTag = bundle.getString("courseTag", "DEFAULT");
+            courseName = bundle.getString("courseName", "DEFAULT");
+            courseLocation = bundle.getString("courseLocation", "DEFAULT");
+            courseStart = bundle.getString("courseStart", "DEFAULT");
+            courseEnd = bundle.getString("courseEnd", "DEFAULT");
+            courseDays = bundle.getString("courseDays", "DEFAULT");
+        }
+
+    }
+
+
+    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // ContextThemeWrapper derived from original activity context with specific theme
+        //final Context themeWrapper = new ContextThemeWrapper(getActivity(), skills_activity.appTheme);
+        // Clone LayoutInflator referencing themeWrapper
+        //LayoutInflater newInflater = inflater.cloneInContext(themeWrapper);
+        // inflate the layout for this fragment
+        //View view = newInflater.inflate(R.layout.fragment_skill_details, container, false);
+        View view = inflater.inflate(R.layout.activity_course_page, container, false);
+
+        // Populate widgets with the data retrieved from bundle that is related to a specific skill
+        TextView name = (TextView) view.findViewById(R.id.course_label);
+        TextView location = (TextView) view.findViewById(R.id.course_location_label);
+        TextView startTime = (TextView) view.findViewById(R.id.course_start_time_label);
+        TextView endTime = (TextView) view.findViewById(R.id.course_end_time_label);
+        name.setText(courseName);
+        location.setText(courseLocation);
+        startTime.setText(courseStart);
+        endTime.setText(courseEnd);
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.course_tasks_recycleView);
+        cAdapter = new CardAdapter(CardList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(cAdapter);
+
+        prepareCardData();
+
+        return view;
+>>>>>>> Matt-Devel
     }
 
     @Override
-    public void onClick(View v) {
-        switch(v.getId()) {
-            case R.id.edit_course_name_button:
-                courseNameText.setEnabled(true);
-                startTimeText.setEnabled(true);
-                endTimeText.setEnabled(true);
-                locationText.setEnabled(true);
-                break;
-            case R.id.course_task1_button:
-                // Should display pop-up window of more details on task with ability to modify the details, once we have this pop-up implemented
-                break;
-            case R.id.course_task2_button:
-                // Should display pop-up window of more details on task with ability to modify the details, once we have this pop-up implemented
-                break;
-            case R.id.course_task3_button:
-                // Should display pop-up window of more details on task with ability to modify the details, once we have this pop-up implemented
-                break;
-            case R.id.course_task4_button:
-                // Should display pop-up window of more details on task with ability to modify the details, once we have this pop-up implemented
-                break;
+    public void onResume() {
+        super.onResume();
+
+        //repopulate cards
+        CardList.clear();
+        prepareCardData();
+    } //end onResume
+
+    private void prepareCardData(){
+
+        for(int i = 1; i <= 100; i++){
+            Card c = new Card("Card #" + i,"Card description goes here!",new Date(),null);
+            CardList.add(c);
         }
     }
+
 }

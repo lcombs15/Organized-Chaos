@@ -103,6 +103,19 @@ public class MainMenu extends AppCompatActivity{
 
                 // Showing selected spinner item
                 Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+                final Intent intent;
+                switch(item) {
+                    case "My Feed":
+                        intent = new Intent(MainMenu.this, courses_activity.class);
+                        startActivity(intent);
+                        break;
+                    case "My Courses":
+                        intent = new Intent(MainMenu.this, courses_activity.class);
+                        startActivity(intent);
+                        break;
+                    case "My Schedule":
+                        break;
+                }
             }
 
             @Override
