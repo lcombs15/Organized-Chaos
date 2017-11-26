@@ -19,6 +19,8 @@
     <color name="custom_colorAccent">#28E1D8</color>
     <color name="custom_darkAccent">#494949</color>
     <color name="custom_darkMain">#000000</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
 
 
 </resources>

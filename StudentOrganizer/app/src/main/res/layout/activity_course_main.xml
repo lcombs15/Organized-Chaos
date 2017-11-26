@@ -6,7 +6,13 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <TextView
+    <ListView
+        android:id="@+id/courses_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+
+    <!--<TextView
         android:id="@+id/Course0"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -47,6 +53,6 @@
         android:layout_marginTop="1dp"
         android:gravity="center"
         android:text="@string/course4"
-        android:textSize="20sp" />
+        android:textSize="20sp" />-->
 
 </LinearLayout>

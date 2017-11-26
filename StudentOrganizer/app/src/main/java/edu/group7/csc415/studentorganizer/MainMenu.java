@@ -119,21 +119,14 @@ public class MainMenu extends AppCompatActivity{
                 final Intent intent;
                 switch(item) {
                     case "My Feed":
-                        intent = new Intent(MainMenu.this, course_list_activity.class);
+                        intent = new Intent(MainMenu.this, courses_activity.class);
                         startActivity(intent);
                         break;
                     case "My Courses":
-                        intent = new Intent(MainMenu.this, course_list_activity.class);
+                        intent = new Intent(MainMenu.this, courses_activity.class);
                         startActivity(intent);
                         break;
-                    case "Reminders":
-                        /* Open reminders feed */
-                        break;
-                    case "To Do List":
-                        /* open to do list */
-                        break;
-                    case "My Calendar":
-                        /* Open schedule/calendar */
+                    case "My Schedule":
                         break;
                 }
             }

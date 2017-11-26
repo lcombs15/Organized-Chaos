@@ -7,7 +7,7 @@
     <string name="course_end_time_editText">9:00 PM</string>
     <string name="location_label">Location</string>
     <string name="course_location_editText">GH 250</string>
-    <string name="tasks_label">Tasks</string>
+    <string name="tasks_label">Task List</string>
     <string name="course_task1_text">Project 1</string>
     <string name="course_task2_text">Lab 2</string>
     <string name="course_task3_text">Project 2</string>
@@ -41,9 +41,7 @@
     <string-array name="quick_access_array">
         <item>Today Feed</item>
         <item>My Courses</item>
-        <item>Reminders</item>
-        <item>To Do List</item>
-        <item>My Calendar</item>
+        <item>My Schedule</item>
     </string-array>
     <string name="title_activity_settings">settings</string>
     <string name="course0">CSC 415</string>
@@ -51,4 +49,15 @@
     <string name="course2">INF 286</string>
     <string name="course3">BIS 111</string>
     <string name="course4">MAT 385</string>
+    <string name="current_date">November, 2017</string>
+    <string name="add_event">ADD EVENT</string>
+    <string name="sun">SUN</string>
+    <string name="mon">MON</string>
+    <string name="tue">TUE</string>
+    <string name="wed">WED</string>
+    <string name="thu">THU</string>
+    <string name="fri">FRI</string>
+    <string name="sat">SAT</string>
+    <string name="last_date">30</string>
+
 </resources>
