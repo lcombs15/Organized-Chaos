@@ -1,32 +1,29 @@
 package edu.group7.csc415.studentorganizer;
 
 import android.app.Fragment;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import layout.templates.Page.Card;
-import layout.templates.Page.CardAdapter;
+import Cards.Card;
+import Cards.CardAdapter;
 
 /**
  * Created by Matt on 11/22/2017.
  */
 
-public class course_page_shell extends Fragment {//AppCompatActivity {
+public class course_page_shell extends Fragment {
 
     private List<Card> CardList = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -42,37 +39,6 @@ public class course_page_shell extends Fragment {//AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-<<<<<<< HEAD
-        setContentView(R.layout.activity_course_page_shell);
-
-        spinner = (Spinner) findViewById(R.id.quick_access_spinner);
-        //Construct ArrayAdapter referencing the string array for spinner options and a default spinner layout
-        adapter = ArrayAdapter.createFromResource(this, R.array.quick_access_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
-        courseNameText = (EditText) findViewById(R.id.course_label);
-        startTimeText = (EditText) findViewById(R.id.course_start_time_label);
-        endTimeText = (EditText) findViewById(R.id.course_end_time_label);
-        locationText = (EditText) findViewById(R.id.course_location_label);
-
-        editButton = (Button) findViewById(R.id.edit_course_name_button);
-        task1 = (Button) findViewById(R.id.course_task1_button);
-        task2 = (Button) findViewById(R.id.course_task2_button);
-        task3 = (Button) findViewById(R.id.course_task3_button);
-        task4 = (Button) findViewById(R.id.course_task4_button);
-
-        courseNameText.setEnabled(false);
-        startTimeText.setEnabled(false);
-        endTimeText.setEnabled(false);
-        locationText.setEnabled(false);
-
-        editButton.setOnClickListener(this);
-        task1.setOnClickListener(this);
-        task2.setOnClickListener(this);
-        task3.setOnClickListener(this);
-        task4.setOnClickListener(this);
-=======
         setHasOptionsMenu(true);
 
         //Load bundle containing information about the skill that should be displayed.
@@ -90,12 +56,7 @@ public class course_page_shell extends Fragment {//AppCompatActivity {
 
 
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // ContextThemeWrapper derived from original activity context with specific theme
-        //final Context themeWrapper = new ContextThemeWrapper(getActivity(), skills_activity.appTheme);
-        // Clone LayoutInflator referencing themeWrapper
-        //LayoutInflater newInflater = inflater.cloneInContext(themeWrapper);
         // inflate the layout for this fragment
-        //View view = newInflater.inflate(R.layout.fragment_skill_details, container, false);
         View view = inflater.inflate(R.layout.activity_course_page, container, false);
 
         // Populate widgets with the data retrieved from bundle that is related to a specific skill
@@ -109,7 +70,7 @@ public class course_page_shell extends Fragment {//AppCompatActivity {
         endTime.setText(courseEnd);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.course_tasks_recycleView);
-        cAdapter = new CardAdapter(CardList);
+        cAdapter = new TaskCardAdapter(CardList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -118,7 +79,6 @@ public class course_page_shell extends Fragment {//AppCompatActivity {
         prepareCardData();
 
         return view;
->>>>>>> Matt-Devel
     }
 
     @Override
@@ -137,5 +97,47 @@ public class course_page_shell extends Fragment {//AppCompatActivity {
             CardList.add(c);
         }
     }
+
+    private class TaskCardAdapter extends CardAdapter{
+        /*
+            To prevent code duplication the CardAdapter class is abstract. To
+            change the onClick method of the cards, make another inner class like this one,
+            implement a constructor and override the onBindViewHolder
+        */
+
+        // TaskCardAdapter constructor
+        public TaskCardAdapter(List<Card> CardsList) {
+            super(CardsList);
+        }
+
+        @Override
+        public void onBindViewHolder(MyViewHolder holder, int position) {
+            //Must be final for onClick to access
+            final Card c = super.CardsList.get(position);
+
+            //Bind data to Card layout
+            holder.title.setText(c.getTitle());
+            holder.description.setText(c.getDescription());
+
+            // TODO fix this to handle null
+            holder.icon.setImageResource(R.mipmap.ic_launcher_round);
+
+            //Handle null string in DATE_FORMAT
+            try {
+                SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy h:mm");
+                holder.dueDate.setText(DATE_FORMAT.format(c.getDueDate()).toString());
+            }
+            catch (Exception e){
+                holder.dueDate.setText("Error");
+            }
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(),"TODO: Add On Click....." + c.getTitle().toString(),Toast.LENGTH_LONG).show();
+                }
+            }); //end OnClickListener
+        } //end setOnCLickListener
+    } //end TaskCardAdapter class
 
 }
