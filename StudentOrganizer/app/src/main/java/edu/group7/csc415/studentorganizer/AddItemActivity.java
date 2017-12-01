@@ -30,7 +30,6 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
     private static final String selectTypeText = "Select Type";
     private static final String courseText = "Course";
     private static final String taskText = "Task";
-    private static final String reminderText = "Reminder";
     private static final String successMsg = "Success";
     private static final String failedMsg = "Failed";
     private static final String deleteSuccessMsg = "Deleted Successfully";
@@ -62,13 +61,9 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
         enterButton.setOnClickListener(this);
         clearButton.setOnClickListener(this);
 
-<<<<<<< HEAD
         loadCourseTitles();
 
-
-=======
         //check if an id was passed with intent
->>>>>>> 23937dfb0e967cdf0edb7cca5de1767e8239c6f5
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             int idValue = extras.getInt(idKey);
@@ -104,8 +99,8 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
                 if (!nameText.equals("")) {
                     if (selectedID == 0)
                     {
-<<<<<<< HEAD
                         String typeToInsert = typeSpinner.getSelectedItem().toString();
+                        //add new activity
                         if (typeToInsert.equals("Task"))
                         {
                             if (mydb.insertActivity(nameText, descriptionText, 1)) {
@@ -114,6 +109,7 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
                                 Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
                             }
                         }
+                        //add new course
                         if (typeToInsert.equals("Course"))
                         {
                             if (mydb.insertCourse(nameText)) {
@@ -125,16 +121,6 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
                         else
                         {
                             Toast.makeText(this, "Please select a type from the dropdown.", Toast.LENGTH_SHORT).show();
-=======
-                        //add new activity
-                        if (mydb.insertActivity(nameText, descriptionText))
-                        {
-                            Toast.makeText(this, successMsg, Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
-                            Toast.makeText(this, failedMsg, Toast.LENGTH_SHORT).show();
->>>>>>> 23937dfb0e967cdf0edb7cca5de1767e8239c6f5
                         }
                     }
                     else if (selectedID > 0)
@@ -149,16 +135,11 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
                             Toast.makeText(this, failedMsg, Toast.LENGTH_SHORT).show();
                         }
                     }
-<<<<<<< HEAD
                 }
                 else {
                     Toast.makeText(this, "Please enter a name into the field.", Toast.LENGTH_SHORT).show();
-                }
-                break;
-=======
-                } //end nameText not blank
-            break; //end case enterButton
->>>>>>> 23937dfb0e967cdf0edb7cca5de1767e8239c6f5
+                } //end if name not entered
+                break; //end case enterButton
             case R.id.clearButton:
                 if (selectedID == 0)
                 {
@@ -205,16 +186,8 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
                 break;
             case taskText:
                 courseLabel.setVisibility(View.VISIBLE);
-<<<<<<< HEAD
                 courseValueSpinner.setVisibility(View.VISIBLE);
                 loadCourseTitles();
-=======
-                courseValue.setVisibility(View.VISIBLE);
-                break;
-            case reminderText:
-                courseLabel.setVisibility(View.VISIBLE);
-                courseValue.setVisibility(View.VISIBLE);
->>>>>>> 23937dfb0e967cdf0edb7cca5de1767e8239c6f5
                 break;
         }
     }
@@ -222,7 +195,6 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-<<<<<<< HEAD
 
     public void loadCourseTitles() {
         List<String> courses = mydb.getAllCourses();
@@ -230,7 +202,4 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
         coursesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         courseValueSpinner.setAdapter(coursesAdapter);
     }
-}
-=======
 } //end AddItemActivity class
->>>>>>> 23937dfb0e967cdf0edb7cca5de1767e8239c6f5

@@ -50,13 +50,9 @@ public class MainMenu extends AppCompatActivity{
         setupSpinner();
         setupActionBar();
 
-<<<<<<< HEAD
-        cAdapter = new TaskCardOnClickAdapter(CardList);
-=======
         //set up RecyclerView
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-        cAdapter = new TaskCardAdapter(CardList);
->>>>>>> 23937dfb0e967cdf0edb7cca5de1767e8239c6f5
+        cAdapter = new TaskCardOnClickAdapter(CardList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -64,13 +60,9 @@ public class MainMenu extends AppCompatActivity{
 
         //set up database and data for cards
         mydb = new DBHelper(this);
-<<<<<<< HEAD
         //savedValues.edit().putBoolean("FirstEntries", false).apply();
         //prepopulateDB();
 
-=======
-        prepopulateDB();
->>>>>>> 23937dfb0e967cdf0edb7cca5de1767e8239c6f5
         prepareCardData();
 
         //set up button to add item
@@ -91,9 +83,7 @@ public class MainMenu extends AppCompatActivity{
         //repopulate cards
         CardList.clear();
         prepareCardData();
-<<<<<<< HEAD
         cAdapter.notifyDataSetChanged();
-=======
     } //end onResume
 
     private void setupActionBar(){
@@ -150,7 +140,6 @@ public class MainMenu extends AppCompatActivity{
         //set the adapter for the spinner and initialize position
         quickAcccessSpinner.setAdapter(spinnerAdapter);
         quickAcccessSpinner.setSelection(0);
->>>>>>> 23937dfb0e967cdf0edb7cca5de1767e8239c6f5
     }
 
     private void prepopulateDB() {
@@ -178,7 +167,6 @@ public class MainMenu extends AppCompatActivity{
             Card c;
             if (i <= numRows) {
                 Cursor result = mydb.getActivity(i);
-<<<<<<< HEAD
                 if (result != null && result.getCount()>0) {
                     result.moveToFirst();
 
@@ -192,16 +180,6 @@ public class MainMenu extends AppCompatActivity{
                 else {
                     numRows += 1;
                     c = new Card("Empty ID", "This entry was deleted. Nothing here.", new Date(), null);
-=======
-                result.moveToFirst();
-
-                String title = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_TITLE));
-                String desc = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_DESCRIPTION));
-
-                //close cursor
-                if (!result.isClosed()) {
-                    result.close();
->>>>>>> 23937dfb0e967cdf0edb7cca5de1767e8239c6f5
                 }
             }
             else {
@@ -267,7 +245,6 @@ public class MainMenu extends AppCompatActivity{
                 public void onClick(View v) {
                     Toast.makeText(getApplicationContext(),"TODO: Add On Click....." + c.getTitle().toString(),Toast.LENGTH_LONG).show();
                 }
-<<<<<<< HEAD
             });
         }
     }
@@ -304,16 +281,10 @@ public class MainMenu extends AppCompatActivity{
                 public void onClick(View v) {
                     //Toast.makeText(getApplicationContext(),"Changed OnClick",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainMenu.this, AddItemActivity.class);
-                    intent.putExtra("id", position+1);
+                    intent.putExtra("id", position + 1);
                     startActivity(intent);
                 }
-            });
-        }
-    }
-}
-=======
             }); //end OnClickListener
         } //end setOnCLickListener
     } //end TaskCardAdapter class
 } //end MainMenu
->>>>>>> 23937dfb0e967cdf0edb7cca5de1767e8239c6f5
