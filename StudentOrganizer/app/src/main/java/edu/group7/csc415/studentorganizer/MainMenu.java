@@ -9,13 +9,11 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -30,131 +28,76 @@ import Cards.CardAdapter;
 public class MainMenu extends AppCompatActivity{
     //define variables for the widgets
     private Spinner quickAcccessSpinner;
-    private LinearLayout buttonLayout;
+
 
     //define SharedPreferences object
     private SharedPreferences savedValues;
 
     //define instance variables
-    private static final String defaultText = "Add classes, reminders, or tasks";
-    private Button defaultButton1;
-    private Button defaultButton2;
-    private Spinner quickAccessSpinner;
-
     private List<Card> CardList = new ArrayList<>();
     private RecyclerView recyclerView;
     private CardAdapter cAdapter;
-
     private DBHelper mydb;
+    private static final String errorMsg = "error";
+    private static final String firstEntryKey = "FirstEntries";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_menu_activity);
 
+        //set view and widgets
+        setContentView(R.layout.main_menu_activity);
         setupSpinner();
         setupActionBar();
-        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
+<<<<<<< HEAD
         cAdapter = new TaskCardOnClickAdapter(CardList);
+=======
+        //set up RecyclerView
+        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        cAdapter = new TaskCardAdapter(CardList);
+>>>>>>> 23937dfb0e967cdf0edb7cca5de1767e8239c6f5
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(cAdapter);
 
+        //set up database and data for cards
         mydb = new DBHelper(this);
+<<<<<<< HEAD
         //savedValues.edit().putBoolean("FirstEntries", false).apply();
         //prepopulateDB();
 
+=======
+        prepopulateDB();
+>>>>>>> 23937dfb0e967cdf0edb7cca5de1767e8239c6f5
         prepareCardData();
 
-
+        //set up button to add item
         final Button circleAddButton = (Button) findViewById(R.id.addItemButton);
         circleAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), AddItemActivity.class);
                 startActivity(i);
-            }
-        });
-    }
+            } //end onClick
+        }); //end new OnClickListener
+    } //end onCreate
 
     @Override
     public void onResume() {
         super.onResume();
 
+        //repopulate cards
         CardList.clear();
         prepareCardData();
+<<<<<<< HEAD
         cAdapter.notifyDataSetChanged();
-    }
-
-    private void prepopulateDB() {
-        boolean firstEntries = savedValues.getBoolean("FirstEntries", false);
-        if (firstEntries == false) {
-            mydb.insertCourse("CSC 402");
-            mydb.insertCourse("CSC 415");
-            if (true){//mydb.insertActivity("Text Lucas", "If this worked, text Lucas that SQLite is working.", 1)) {
-                Toast.makeText(this, "done", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                Toast.makeText(this, "not working", Toast.LENGTH_SHORT).show();
-            }
-
-            savedValues.edit().putBoolean("FirstEntries", true).apply();
-        }
-        else {
-            savedValues.edit().putBoolean("FirstEntries", true).apply();
-        }
-    }
-
-    private void prepareCardData(){
-
-        int numRows = mydb.numberOfRows();
-        for(int i = 1; i <= 100; i++){
-            Card c;
-            if (i <= numRows) {
-                Cursor result = mydb.getActivity(i);
-                if (result != null && result.getCount()>0) {
-                    result.moveToFirst();
-
-                    String title = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_TITLE));
-                    String desc = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_DESCRIPTION));
-                    if (!result.isClosed()) {
-                        result.close();
-                    }
-                    c = new Card(title, desc, new Date(), null);
-                }
-                else {
-                    numRows += 1;
-                    c = new Card("Empty ID", "This entry was deleted. Nothing here.", new Date(), null);
-                }
-            }
-            else {
-                c = new Card("Card #" + i,"Card description goes here!",new Date(),null);
-            }
-            //Card c = new Card("Card #" + i,"Card description goes here!",new Date(),null);
-            CardList.add(c);
-        }
-    }
+=======
+    } //end onResume
 
     private void setupActionBar(){
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.action_bar, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        /* TODO
-        Intent menu = new Intent(getApplicationContext(),item.getActionView().getClass());
-        startActivity(menu);
-        */
-        return true;
+        //TODO
     }
 
     private void setupSpinner(){
@@ -164,7 +107,7 @@ public class MainMenu extends AppCompatActivity{
         //get SharedPreferences object
         savedValues = getSharedPreferences("SavedValues", MODE_PRIVATE);
 
-        //set the Listeners
+        //set up the listener and functionality
         quickAcccessSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -173,11 +116,26 @@ public class MainMenu extends AppCompatActivity{
 
                 // Showing selected spinner item
                 Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+                final Intent intent;
+                switch(item) {
+                    case "My Feed":
+                        intent = new Intent(MainMenu.this, courses_activity.class);
+                        startActivity(intent);
+                        break;
+                    case "My Courses":
+                        //intent = new Intent(MainMenu.this, courses_activity.class);
+                        intent = new Intent(MainMenu.this, courses_activity.class);
+                        startActivity(intent);
+                        break;
+                    case "My Calendar":
+                        intent = new Intent(MainMenu.this, CalendarListViewActivity.class);
+                        startActivity(intent);
+                        break;
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
@@ -192,46 +150,124 @@ public class MainMenu extends AppCompatActivity{
         //set the adapter for the spinner and initialize position
         quickAcccessSpinner.setAdapter(spinnerAdapter);
         quickAcccessSpinner.setSelection(0);
+>>>>>>> 23937dfb0e967cdf0edb7cca5de1767e8239c6f5
     }
 
-    /*
-        To prevent code duplication I have made the CardAdapter class abstract.
+    private void prepopulateDB() {
+        boolean firstEntries = savedValues.getBoolean(firstEntryKey, false);
+        if (firstEntries == false) {
+            mydb.insertCourse("CSC 402");
+            mydb.insertCourse("CSC 415");
+            if (true){//mydb.insertActivity("Text Lucas", "If this worked, text Lucas that SQLite is working.", 1)) {
+                Toast.makeText(this, "done", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(this, "not working", Toast.LENGTH_SHORT).show();
+            }
+            savedValues.edit().putBoolean(firstEntryKey, true).apply();
+        }
+        else {
+            savedValues.edit().putBoolean(firstEntryKey, true).apply();
+        }
+    } //end prepopulateDB
 
-        We will have to make another inner class, like this one, any time we want to change the onClick method of the cards
-        You only need to have a constructor and override the onBindViewHolder
-     */
+    private void prepareCardData(){
+        int numRows = mydb.numberOfRows();
+
+        for(int i = 1; i <= 100; i++){
+            Card c;
+            if (i <= numRows) {
+                Cursor result = mydb.getActivity(i);
+<<<<<<< HEAD
+                if (result != null && result.getCount()>0) {
+                    result.moveToFirst();
+
+                    String title = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_TITLE));
+                    String desc = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_DESCRIPTION));
+                    if (!result.isClosed()) {
+                        result.close();
+                    }
+                    c = new Card(title, desc, new Date(), null);
+                }
+                else {
+                    numRows += 1;
+                    c = new Card("Empty ID", "This entry was deleted. Nothing here.", new Date(), null);
+=======
+                result.moveToFirst();
+
+                String title = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_TITLE));
+                String desc = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_DESCRIPTION));
+
+                //close cursor
+                if (!result.isClosed()) {
+                    result.close();
+>>>>>>> 23937dfb0e967cdf0edb7cca5de1767e8239c6f5
+                }
+            }
+            else {
+                c = new Card("Card #" + i,"Card description goes here!",new Date(),null);
+            }
+            CardList.add(c);
+        } //end for
+    } //end prepareCardData
+
+
+
+    public boolean onCreateOptionsMenu (Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_settings:
+                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private class TaskCardAdapter extends CardAdapter{
+        /*
+            To prevent code duplication the CardAdapter class is abstract. To
+            change the onClick method of the cards, make another inner class like this one,
+            implement a constructor and override the onBindViewHolder
+        */
 
+        // TaskCardAdapter constructor
         public TaskCardAdapter(List<Card> CardsList) {
             super(CardsList);
         }
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-            //Needs to be final if onClick is going to use it
+        //Must be final for onClick to access
             final Card c = super.CardsList.get(position);
 
-            //Bind all fields in Card XML to data
+            //Bind data to Card layout
             holder.title.setText(c.getTitle());
             holder.description.setText(c.getDescription());
 
             // TODO fix this to handle null
             holder.icon.setImageResource(R.mipmap.ic_launcher_round);
 
-            //Don't error out if DATE_FORMAT is passed a null string
+            //Handle null string in DATE_FORMAT
             try {
                 SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy h:mm");
                 holder.dueDate.setText(DATE_FORMAT.format(c.getDueDate()).toString());
-            }catch (Exception e){
-                holder.dueDate.setText("error");
+            }
+            catch (Exception e){
+                holder.dueDate.setText(errorMsg);
             }
 
-            //The almighty onClick for a Card
             holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
+            @Override
                 public void onClick(View v) {
                     Toast.makeText(getApplicationContext(),"TODO: Add On Click....." + c.getTitle().toString(),Toast.LENGTH_LONG).show();
                 }
+<<<<<<< HEAD
             });
         }
     }
@@ -275,3 +311,9 @@ public class MainMenu extends AppCompatActivity{
         }
     }
 }
+=======
+            }); //end OnClickListener
+        } //end setOnCLickListener
+    } //end TaskCardAdapter class
+} //end MainMenu
+>>>>>>> 23937dfb0e967cdf0edb7cca5de1767e8239c6f5

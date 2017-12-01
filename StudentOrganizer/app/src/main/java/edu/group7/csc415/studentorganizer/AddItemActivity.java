@@ -26,12 +26,22 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
 
     private DBHelper mydb;
     private int selectedID = 0;
+    private static final String idKey = "id";
+    private static final String selectTypeText = "Select Type";
+    private static final String courseText = "Course";
+    private static final String taskText = "Task";
+    private static final String reminderText = "Reminder";
+    private static final String successMsg = "Success";
+    private static final String failedMsg = "Failed";
+    private static final String deleteSuccessMsg = "Deleted Successfully";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
 
+        //assign variables to widgets
         typeSpinner = (Spinner) findViewById(R.id.typeSpinner);
         courseValueSpinner = (Spinner) findViewById(R.id.courseValueSpinner);
         name = (EditText) findViewById(R.id.nameValue);
@@ -41,40 +51,50 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
         enterButton = (Button) findViewById(R.id.enterButton);
         clearButton = (Button) findViewById(R.id.clearButton);
 
+        //set adapter for Spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.types_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         typeSpinner.setAdapter(adapter);
         typeSpinner.setOnItemSelectedListener(this);
 
+        //set up database helper and wire button listeners
         mydb = new DBHelper(this);
         enterButton.setOnClickListener(this);
         clearButton.setOnClickListener(this);
 
+<<<<<<< HEAD
         loadCourseTitles();
 
 
+=======
+        //check if an id was passed with intent
+>>>>>>> 23937dfb0e967cdf0edb7cca5de1767e8239c6f5
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            int idValue = extras.getInt("id");
+            int idValue = extras.getInt(idKey);
 
-            //If an id value is already assigned, then we are editing a value, not adding a value;
+            //If an id value is already assigned, then we are editing a value, not adding a value
             if (idValue>0) {
+                //get item to be edited
                 Cursor result = mydb.getActivity(idValue);
                 result.moveToFirst();
                 selectedID = idValue;
 
+                //set new title and description
                 name.setText(result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_TITLE)));
                 descript.setText(result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_DESCRIPTION)));
 
+                //close cursor
                 if (!result.isClosed()) {
                     result.close();
                 }
 
+                //set text on buttons for commiting or cancelling change
                 enterButton.setText(R.string.update);
                 clearButton.setText(R.string.delete);
-            }
-        }
-    }
+            }//end of editing value
+        }//end if
+    } //end onCreate
 
     public void onClick(View v) {
         switch (v.getId()) {
@@ -84,6 +104,7 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
                 if (!nameText.equals("")) {
                     if (selectedID == 0)
                     {
+<<<<<<< HEAD
                         String typeToInsert = typeSpinner.getSelectedItem().toString();
                         if (typeToInsert.equals("Task"))
                         {
@@ -104,24 +125,40 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
                         else
                         {
                             Toast.makeText(this, "Please select a type from the dropdown.", Toast.LENGTH_SHORT).show();
+=======
+                        //add new activity
+                        if (mydb.insertActivity(nameText, descriptionText))
+                        {
+                            Toast.makeText(this, successMsg, Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(this, failedMsg, Toast.LENGTH_SHORT).show();
+>>>>>>> 23937dfb0e967cdf0edb7cca5de1767e8239c6f5
                         }
                     }
                     else if (selectedID > 0)
                     {
+                        //update activity
                         if (mydb.updateActivity(selectedID, nameText, descriptionText))
                         {
-                            Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, successMsg, Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
-                            Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, failedMsg, Toast.LENGTH_SHORT).show();
                         }
                     }
+<<<<<<< HEAD
                 }
                 else {
                     Toast.makeText(this, "Please enter a name into the field.", Toast.LENGTH_SHORT).show();
                 }
                 break;
+=======
+                } //end nameText not blank
+            break; //end case enterButton
+>>>>>>> 23937dfb0e967cdf0edb7cca5de1767e8239c6f5
             case R.id.clearButton:
                 if (selectedID == 0)
                 {
@@ -131,12 +168,13 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
                 }
                 else if (selectedID > 0)
                 {
+                    //delete activity
                     AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                     alertBuilder.setMessage(R.string.deleteItem).setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             mydb.deleteActivity(selectedID);
-                            Toast.makeText(getApplicationContext(), "Deleted Successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), deleteSuccessMsg, Toast.LENGTH_SHORT).show();
 
                         }
                     }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
@@ -148,27 +186,35 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
                     AlertDialog alert = alertBuilder.create();
                     alert.show();
                 }
-                break;
-        }
-    }
+                break; //end case clearButton
+        } //end switch
+    } //end onClickView
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         Object selected;
         selected = parent.getItemAtPosition(pos);
         switch (selected.toString())
         {
-            case "Select Type":
+            case selectTypeText:
                 courseLabel.setVisibility(View.GONE);
                 courseValueSpinner.setVisibility(View.GONE);
                 break;
-            case "Course":
+            case courseText:
                 courseLabel.setVisibility(View.GONE);
                 courseValueSpinner.setVisibility(View.GONE);
                 break;
-            case "Task":
+            case taskText:
                 courseLabel.setVisibility(View.VISIBLE);
+<<<<<<< HEAD
                 courseValueSpinner.setVisibility(View.VISIBLE);
                 loadCourseTitles();
+=======
+                courseValue.setVisibility(View.VISIBLE);
+                break;
+            case reminderText:
+                courseLabel.setVisibility(View.VISIBLE);
+                courseValue.setVisibility(View.VISIBLE);
+>>>>>>> 23937dfb0e967cdf0edb7cca5de1767e8239c6f5
                 break;
         }
     }
@@ -176,6 +222,7 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+<<<<<<< HEAD
 
     public void loadCourseTitles() {
         List<String> courses = mydb.getAllCourses();
@@ -184,3 +231,6 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
         courseValueSpinner.setAdapter(coursesAdapter);
     }
 }
+=======
+} //end AddItemActivity class
+>>>>>>> 23937dfb0e967cdf0edb7cca5de1767e8239c6f5
