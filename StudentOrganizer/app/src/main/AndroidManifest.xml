@@ -28,10 +28,17 @@
             android:label="Settings"
             android:theme="@style/CustomAppTheme">
         </activity>
-        <activity android:name=".courses_activity"
+        <!--<activity android:name=".courses_activity"
             android:parentActivityName=".MainMenu"
             android:label="My Courses"
             android:theme="@style/CustomAppTheme">
+        </activity>-->
+        <activity android:name=".CalendarListViewActivity"
+            android:label="Calendar Events">
+        </activity>
+        <activity android:name=".CalendarActivity"
+            android:label="My Calendar">
+
         </activity>
 
     </application>

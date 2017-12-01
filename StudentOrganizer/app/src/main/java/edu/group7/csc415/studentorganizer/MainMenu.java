@@ -110,7 +110,8 @@ public class MainMenu extends AppCompatActivity{
                         startActivity(intent);
                         break;
                     case "My Courses":
-                        intent = new Intent(MainMenu.this, courses_activity.class);
+                        //intent = new Intent(MainMenu.this, courses_activity.class);
+                        intent = new Intent(MainMenu.this, CalendarListViewActivity.class);
                         startActivity(intent);
                         break;
                     case "My Schedule":
