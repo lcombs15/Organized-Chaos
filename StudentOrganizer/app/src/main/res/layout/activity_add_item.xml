@@ -66,10 +66,10 @@
             android:textSize="20sp"
             android:id="@+id/courseLabel"
             android:visibility="gone"/>
-        <EditText
+        <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/courseValue"
+            android:id="@+id/courseValueSpinner"
             android:visibility="gone"/>
     </LinearLayout>
     <LinearLayout

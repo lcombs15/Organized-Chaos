@@ -14,10 +14,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AddItemActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
-    private Spinner typeSpinner;
-    private EditText name, time, courseValue, descript;
+    private Spinner typeSpinner, courseValueSpinner;
+    private EditText name, time, descript;
     private TextView courseLabel;
     private Button enterButton, clearButton;
 
@@ -30,9 +33,9 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
         setContentView(R.layout.activity_add_item);
 
         typeSpinner = (Spinner) findViewById(R.id.typeSpinner);
+        courseValueSpinner = (Spinner) findViewById(R.id.courseValueSpinner);
         name = (EditText) findViewById(R.id.nameValue);
         time = (EditText) findViewById(R.id.timeValue);
-        courseValue = (EditText) findViewById(R.id.courseValue);
         descript = (EditText) findViewById(R.id.descriptionValue);
         courseLabel = (TextView) findViewById(R.id.courseLabel);
         enterButton = (Button) findViewById(R.id.enterButton);
@@ -46,6 +49,8 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
         mydb = new DBHelper(this);
         enterButton.setOnClickListener(this);
         clearButton.setOnClickListener(this);
+
+        loadCourseTitles();
 
 
         Bundle extras = getIntent().getExtras();
@@ -79,13 +84,26 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
                 if (!nameText.equals("")) {
                     if (selectedID == 0)
                     {
-                        if (mydb.insertActivity(nameText, descriptionText))
+                        String typeToInsert = typeSpinner.getSelectedItem().toString();
+                        if (typeToInsert.equals("Task"))
                         {
-                            Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+                            if (mydb.insertActivity(nameText, descriptionText, 1)) {
+                                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        if (typeToInsert.equals("Course"))
+                        {
+                            if (mydb.insertCourse(nameText)) {
+                                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(this, "Failed. Duplicate name.", Toast.LENGTH_SHORT).show();
+                            }
                         }
                         else
                         {
-                            Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Please select a type from the dropdown.", Toast.LENGTH_SHORT).show();
                         }
                     }
                     else if (selectedID > 0)
@@ -99,6 +117,9 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
                             Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     }
+                }
+                else {
+                    Toast.makeText(this, "Please enter a name into the field.", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.clearButton:
@@ -138,24 +159,28 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
         {
             case "Select Type":
                 courseLabel.setVisibility(View.GONE);
-                courseValue.setVisibility(View.GONE);
+                courseValueSpinner.setVisibility(View.GONE);
                 break;
             case "Course":
                 courseLabel.setVisibility(View.GONE);
-                courseValue.setVisibility(View.GONE);
+                courseValueSpinner.setVisibility(View.GONE);
                 break;
             case "Task":
                 courseLabel.setVisibility(View.VISIBLE);
-                courseValue.setVisibility(View.VISIBLE);
-                break;
-            case "Reminder":
-                courseLabel.setVisibility(View.VISIBLE);
-                courseValue.setVisibility(View.VISIBLE);
+                courseValueSpinner.setVisibility(View.VISIBLE);
+                loadCourseTitles();
                 break;
         }
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    public void loadCourseTitles() {
+        List<String> courses = mydb.getAllCourses();
+        ArrayAdapter<String> coursesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, courses);
+        coursesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        courseValueSpinner.setAdapter(coursesAdapter);
     }
 }

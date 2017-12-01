@@ -56,14 +56,15 @@ public class MainMenu extends AppCompatActivity{
         setupActionBar();
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
-        cAdapter = new TaskCardAdapter(CardList);
+        cAdapter = new TaskCardOnClickAdapter(CardList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(cAdapter);
 
         mydb = new DBHelper(this);
-        prepopulateDB();
+        //savedValues.edit().putBoolean("FirstEntries", false).apply();
+        //prepopulateDB();
 
         prepareCardData();
 
@@ -84,14 +85,15 @@ public class MainMenu extends AppCompatActivity{
 
         CardList.clear();
         prepareCardData();
+        cAdapter.notifyDataSetChanged();
     }
 
     private void prepopulateDB() {
         boolean firstEntries = savedValues.getBoolean("FirstEntries", false);
         if (firstEntries == false) {
-            mydb.insertActivity("Android Final", "Finish the app for the final project in Android Development.");
-            mydb.insertActivity("Register Classes", "Register classes for next semester.");
-            if (mydb.insertActivity("Text Lucas", "If this worked, text Lucas that SQLite is working.")) {
+            mydb.insertCourse("CSC 402");
+            mydb.insertCourse("CSC 415");
+            if (true){//mydb.insertActivity("Text Lucas", "If this worked, text Lucas that SQLite is working.", 1)) {
                 Toast.makeText(this, "done", Toast.LENGTH_SHORT).show();
             }
             else {
@@ -112,14 +114,20 @@ public class MainMenu extends AppCompatActivity{
             Card c;
             if (i <= numRows) {
                 Cursor result = mydb.getActivity(i);
-                result.moveToFirst();
+                if (result != null && result.getCount()>0) {
+                    result.moveToFirst();
 
-                String title = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_TITLE));
-                String desc = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_DESCRIPTION));
-                if (!result.isClosed()) {
-                    result.close();
+                    String title = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_TITLE));
+                    String desc = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_DESCRIPTION));
+                    if (!result.isClosed()) {
+                        result.close();
+                    }
+                    c = new Card(title, desc, new Date(), null);
                 }
-                c = new Card(title, desc, new Date(), null);
+                else {
+                    numRows += 1;
+                    c = new Card("Empty ID", "This entry was deleted. Nothing here.", new Date(), null);
+                }
             }
             else {
                 c = new Card("Card #" + i,"Card description goes here!",new Date(),null);
@@ -223,6 +231,45 @@ public class MainMenu extends AppCompatActivity{
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getApplicationContext(),"TODO: Add On Click....." + c.getTitle().toString(),Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+    }
+
+    private class TaskCardOnClickAdapter extends TaskCardAdapter{
+
+        public TaskCardOnClickAdapter(List<Card> CardsList) {
+            super(CardsList);
+        }
+
+        @Override
+        public void onBindViewHolder(MyViewHolder holder, final int position) {
+            //Needs to be final if onClick is going to use it
+            final Card c = super.CardsList.get(position);
+
+            //Bind all fields in Card XML to data
+            holder.title.setText(c.getTitle());
+            holder.description.setText(c.getDescription());
+
+            // TODO fix this to handle null
+            holder.icon.setImageResource(R.mipmap.ic_launcher_round);
+
+            //Don't error out if DATE_FORMAT is passed a null string
+            try {
+                SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy h:mm");
+                holder.dueDate.setText(DATE_FORMAT.format(c.getDueDate()).toString());
+            }catch (Exception e){
+                holder.dueDate.setText("error");
+            }
+
+            //The almighty onClick for a Card
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Toast.makeText(getApplicationContext(),"Changed OnClick",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainMenu.this, AddItemActivity.class);
+                    intent.putExtra("id", position+1);
+                    startActivity(intent);
                 }
             });
         }
