@@ -29,7 +29,7 @@
 
     <style name="CustomButtonStyle" parent="android:Widget.Button">
         <item name="android:background">@color/themeColorRelaxed</item>
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">@color/themeColorMellow</item>
         <item name="android:textSize">20sp</item>
         <item name="android:padding">7dp</item>
     </style>
@@ -37,6 +37,8 @@
     <style name="CustomActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">@color/themeColorRelaxed</item>
         <item name="android:titleTextStyle">@style/CustomActionBarTitleTextStyle</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:tint">@null</item>
     </style>
 
     <style name="CustomActionBarTitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
