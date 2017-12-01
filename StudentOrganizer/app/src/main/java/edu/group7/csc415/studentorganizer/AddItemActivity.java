@@ -1,5 +1,8 @@
 package edu.group7.csc415.studentorganizer;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
@@ -9,15 +12,21 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
-public class AddItemActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+public class AddItemActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
     private Spinner typeSpinner, courseValueSpinner;
     private EditText name, time, descript;
@@ -90,6 +99,12 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
             }//end of editing value
         }//end if
     } //end onCreate
+
+    public void datePicker(View view){
+
+        DatePickerFragment fragment = new DatePickerFragment();
+        fragment.show(getFragmentManager(), "date");
+    }
 
     public void onClick(View v) {
         switch (v.getId()) {
@@ -193,6 +208,35 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    private void setDate(final Calendar calendar) {
+        //final DateFormat dateFormat = DateFormat.getDateInstance("yyyy-MM-dd");
+        final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        ((TextView) findViewById(R.id.selectedDate)).setText(dateFormat.format(calendar.getTime()));
+
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int day) {
+        Calendar cal = new GregorianCalendar(year, month, day);
+        setDate(cal);
+    }
+
+    public static class DatePickerFragment extends DialogFragment {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            return new DatePickerDialog(getActivity(),
+                    (DatePickerDialog.OnDateSetListener)
+                            getActivity(), year, month, day);
+        }
 
     }
 
