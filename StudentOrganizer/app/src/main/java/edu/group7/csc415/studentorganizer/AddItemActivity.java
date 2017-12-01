@@ -118,7 +118,7 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
                         //add new activity
                         if (typeToInsert.equals("Task"))
                         {
-                            if (mydb.insertActivity(nameText, descriptionText, 1)) {
+                            if (mydb.insertActivity(nameText, descriptionText, "1787-01-22", 1)) {
                                 Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
@@ -141,7 +141,7 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
                     else if (selectedID > 0)
                     {
                         //update activity
-                        if (mydb.updateActivity(selectedID, nameText, descriptionText))
+                        if (mydb.updateActivity(selectedID, nameText, descriptionText, "", 1))
                         {
                             Toast.makeText(this, successMsg, Toast.LENGTH_SHORT).show();
                         }

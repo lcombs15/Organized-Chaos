@@ -18,12 +18,13 @@ import java.util.List;
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "StudentOrganizer.db";
-    public static final int DB_VERSION = 20171129_30; //Year(4) Month(2) Day(2) _ Update Number of day(2)
+    public static final int DB_VERSION = 20171230_01; //Year(4) Month(2) Day(2) _ Update Number of day(2)
 
     public static final String ACTIVITIES_TABLE_NAME = "activities";
     public static final String ACTIVITIES_COLUMN_ID = "id";
     public static final String ACTIVITIES_COLUMN_TITLE = "title";
     public static final String ACTIVITIES_COLUMN_DESCRIPTION = "description";
+    public static final String ACTIVITIES_COLUMN_DATE = "date";
     public static final String ACTIVITIES_COLUMN_COURSE_ID = "courseid";
 
     public static final String COURSES_TABLE_NAME = "courses";
@@ -44,6 +45,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 ACTIVITIES_COLUMN_ID + " integer primary key autoincrement, " +
                 ACTIVITIES_COLUMN_TITLE + " text, " +
                 ACTIVITIES_COLUMN_DESCRIPTION + " text, " +
+                ACTIVITIES_COLUMN_DATE + " text, " +
                 ACTIVITIES_COLUMN_COURSE_ID + " integer " +
                 //"FOREIGN KEY (" + ACTIVITIES_COLUMN_COURSE_ID + ") REFERENCES " + COURSES_TABLE_NAME + "(" + COURSES_COLUMN_ID + ")" +
                 ");");
@@ -57,11 +59,12 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertActivity(String title, String description, int courseID) {
+    public boolean insertActivity(String title, String description, String date, int courseID) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(ACTIVITIES_COLUMN_TITLE, title);
         contentValues.put(ACTIVITIES_COLUMN_DESCRIPTION, description);
+        contentValues.put(ACTIVITIES_COLUMN_DATE, date);
         contentValues.put(ACTIVITIES_COLUMN_COURSE_ID, courseID);
         db.insert(ACTIVITIES_TABLE_NAME, null, contentValues);
         return true;
@@ -83,11 +86,13 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean updateActivity(int id, String title, String description) {
+    public boolean updateActivity(int id, String title, String description, String date, int courseID) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(ACTIVITIES_COLUMN_TITLE, title);
         contentValues.put(ACTIVITIES_COLUMN_DESCRIPTION, description);
+        contentValues.put(ACTIVITIES_COLUMN_DATE, date);
+        contentValues.put(ACTIVITIES_COLUMN_COURSE_ID, courseID);
         db.update(ACTIVITIES_TABLE_NAME, contentValues, ACTIVITIES_COLUMN_ID + " = ? ", new String[] {Integer.toString(id) });
         return true;
     }
@@ -106,9 +111,22 @@ public class DBHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public int getCourseID(String cname) {
+    public Cursor getCourse(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        return 0;
+        String idString = Integer.toString(id);
+        Cursor result = db.rawQuery("SELECT * FROM " + COURSES_TABLE_NAME + " WHERE " + COURSES_COLUMN_ID + "="+idString, null);
+        return result;
+    }
+
+    public int getCourseID(String cname) {
+        int courseID = -1;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor result = db.rawQuery("SELECT * FROM " + COURSES_TABLE_NAME + " WHERE " + COURSES_COLUMN_TITLE + "=" + cname, null);
+        if (result != null && result.getCount()>0) {
+            result.moveToFirst();
+            courseID = result.getInt(result.getColumnIndex(COURSES_COLUMN_ID));
+        }
+        return courseID;
     }
 
     public int numberOfRows() {
