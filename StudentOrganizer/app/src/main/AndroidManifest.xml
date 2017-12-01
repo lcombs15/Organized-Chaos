@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/CustomAppTheme">
         <activity android:name=".MainMenu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,18 +20,15 @@
 
         <activity android:name=".SettingsActivity"></activity>
         <activity
-            android:name=".AddItemActivity"
-            android:theme="@style/AppTheme">
+            android:name=".AddItemActivity">
         </activity>
         <activity android:name=".settings"
             android:parentActivityName=".MainMenu"
-            android:label="Settings"
-            android:theme="@style/AppTheme">
+            android:label="Settings">
         </activity>
         <activity android:name=".courses_activity"
             android:parentActivityName=".MainMenu"
-            android:label="My Courses"
-            android:theme="@style/AppTheme">
+            android:label="My Courses">
         </activity>
         <activity android:name=".CalendarListViewActivity"
             android:label="Calendar Events">
