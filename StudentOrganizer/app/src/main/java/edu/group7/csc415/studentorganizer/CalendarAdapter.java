@@ -129,7 +129,7 @@ public class CalendarAdapter extends BaseAdapter {
 
     public View setSelected(View view, int pos) {
         if (previousView != null) {
-            previousView.setBackgroundColor(Color.parseColor("343434"));
+            previousView.setBackgroundColor(Color.parseColor("#343434"));
         }
         view.setBackgroundColor(Color.CYAN);
         int length = day_string.size();

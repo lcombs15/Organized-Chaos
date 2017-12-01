@@ -111,10 +111,12 @@ public class MainMenu extends AppCompatActivity{
                         break;
                     case "My Courses":
                         //intent = new Intent(MainMenu.this, courses_activity.class);
-                        intent = new Intent(MainMenu.this, CalendarListViewActivity.class);
+                        intent = new Intent(MainMenu.this, courses_activity.class);
                         startActivity(intent);
                         break;
-                    case "My Schedule":
+                    case "My Calendar":
+                        intent = new Intent(MainMenu.this, CalendarListViewActivity.class);
+                        startActivity(intent);
                         break;
                 }
             }
