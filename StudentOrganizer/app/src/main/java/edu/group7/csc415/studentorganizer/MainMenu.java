@@ -132,7 +132,7 @@ public class MainMenu extends AppCompatActivity{
         //create array adapter for Spinner
         ArrayAdapter<CharSequence> spinnerAdapter =
                 ArrayAdapter.createFromResource(this, R.array.quick_access_array,
-                        android.R.layout.simple_spinner_item);
+                        R.layout.spinner_item);
 
         //set the layout for the drop-down list
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -243,7 +243,6 @@ public class MainMenu extends AppCompatActivity{
             holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
                 public void onClick(View v) {
-                    Toast.makeText(getApplicationContext(),"TODO: Add On Click....." + c.getTitle().toString(),Toast.LENGTH_LONG).show();
                 }
             });
         }
