@@ -53,14 +53,13 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
         typeSpinner = (Spinner) findViewById(R.id.typeSpinner);
         courseValueSpinner = (Spinner) findViewById(R.id.courseValueSpinner);
         name = (EditText) findViewById(R.id.nameValue);
-        time = (EditText) findViewById(R.id.timeValue);
         descript = (EditText) findViewById(R.id.descriptionValue);
         courseLabel = (TextView) findViewById(R.id.courseLabel);
         enterButton = (Button) findViewById(R.id.enterButton);
         clearButton = (Button) findViewById(R.id.clearButton);
 
         //set adapter for Spinner
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.types_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.types_array, R.layout.spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         typeSpinner.setAdapter(adapter);
         typeSpinner.setOnItemSelectedListener(this);

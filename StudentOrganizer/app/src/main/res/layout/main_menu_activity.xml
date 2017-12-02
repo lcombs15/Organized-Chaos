@@ -12,7 +12,8 @@
         android:id="@+id/navigationSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="7dp"
+        android:background="@color/themeColorLight"
         />
 
     <android.support.v7.widget.RecyclerView
@@ -30,6 +31,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:text="+"
+        android:textColor="#000000"
         android:textSize="40sp"
         android:padding="0dp"
         android:minHeight="80dp"
