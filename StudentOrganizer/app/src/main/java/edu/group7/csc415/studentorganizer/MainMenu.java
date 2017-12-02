@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,9 +27,6 @@ import Cards.Card;
 import Cards.CardAdapter;
 
 public class MainMenu extends AppCompatActivity{
-    //define variables for the widgets
-    private Spinner quickAcccessSpinner;
-
 
     //define SharedPreferences object
     private SharedPreferences savedValues;
@@ -47,7 +45,6 @@ public class MainMenu extends AppCompatActivity{
 
         //set view and widgets
         setContentView(R.layout.main_menu_activity);
-        setupSpinner();
         setupActionBar();
 
         //set up RecyclerView
@@ -87,59 +84,31 @@ public class MainMenu extends AppCompatActivity{
     } //end onResume
 
     private void setupActionBar(){
-        //TODO
-    }
-
-    private void setupSpinner(){
-        //getReferences to the widgets
-        quickAcccessSpinner = (Spinner) findViewById(R.id.navigationSpinner);
-
-        //get SharedPreferences object
-        savedValues = getSharedPreferences("SavedValues", MODE_PRIVATE);
-
-        //set up the listener and functionality
-        quickAcccessSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        //inflate a toolbar to provide navigation
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.navigationToolbar);
+        myToolbar.inflateMenu(R.menu.navigation_toolbar_menu);
+        myToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // On selecting a spinner item
-                String item = parent.getItemAtPosition(position).toString();
-
-                // Showing selected spinner item
-                Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+            public boolean onMenuItemClick(MenuItem item) {
+                //launch the appropriate activity when an item is clicked
                 final Intent intent;
-                switch(item) {
-                    case "My Feed":
+                switch (item.getItemId()) {
+                    case R.id.action_my_feed:
                         intent = new Intent(MainMenu.this, courses_activity.class);
                         startActivity(intent);
                         break;
-                    case "My Courses":
-                        //intent = new Intent(MainMenu.this, courses_activity.class);
+                    case R.id.action_my_courses:
                         intent = new Intent(MainMenu.this, courses_activity.class);
                         startActivity(intent);
                         break;
-                    case "My Calendar":
+                    case R.id.action_my_calendar:
                         intent = new Intent(MainMenu.this, CalendarListViewActivity.class);
                         startActivity(intent);
                         break;
                 }
+                return true;
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-        //create array adapter for Spinner
-        ArrayAdapter<CharSequence> spinnerAdapter =
-                ArrayAdapter.createFromResource(this, R.array.quick_access_array,
-                        R.layout.spinner_item);
-
-        //set the layout for the drop-down list
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        //set the adapter for the spinner and initialize position
-        quickAcccessSpinner.setAdapter(spinnerAdapter);
-        quickAcccessSpinner.setSelection(0);
+        } );
     }
 
     private void prepopulateDB() {
@@ -188,24 +157,6 @@ public class MainMenu extends AppCompatActivity{
             CardList.add(c);
         } //end for
     } //end prepareCardData
-
-
-
-    public boolean onCreateOptionsMenu (Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_settings:
-                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
     private class TaskCardAdapter extends CardAdapter{
         /*
