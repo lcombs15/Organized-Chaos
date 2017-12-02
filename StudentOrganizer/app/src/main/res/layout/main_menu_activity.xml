@@ -8,12 +8,12 @@
     android:padding="10dp"
     android:orientation="vertical"
     tools:context="edu.group7.csc415.studentorganizer.MainMenu">
-    <android.support.v7.widget.AppCompatSpinner
-        android:id="@+id/navigationSpinner"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/navigationToolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="7dp"
-        android:background="@color/themeColorLight"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        style="@style/CustomActionBarStyle"
         />
 
     <android.support.v7.widget.RecyclerView
@@ -21,7 +21,7 @@
         android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/navigationSpinner"
+        android:layout_below="@+id/navigationToolbar"
         />
 
     <Button
