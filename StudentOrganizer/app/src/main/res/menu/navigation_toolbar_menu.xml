@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- I don't think we need this for now, I'll keep it just in case - Lucas
     <item
         android:id="@+id/action_my_feed"
         android:title="@string/action_my_feed"
         app:showAsAction="always"/>
-
+    -->
     <item
         android:id="@+id/action_my_courses"
         android:title="@string/action_my_courses"
@@ -14,6 +15,7 @@
     <item
         android:id="@+id/action_my_calendar"
         android:title="@string/action_my_calendar"
+        android:icon="@android:drawable/ic_menu_my_calendar"
         app:showAsAction="always"/>
 
 </menu>
