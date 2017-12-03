@@ -73,7 +73,7 @@
     <string name="fri">FRI</string>
     <string name="sat">SAT</string>
     <string name="last_date">30</string>
-    <string name="action_my_feed">My Feed</string>
-    <string name="action_my_courses">My Courses</string>
-    <string name="action_my_calendar">My Calendar</string>
+    <string name="action_my_feed">Feed</string>
+    <string name="action_my_courses">Courses</string>
+    <string name="action_my_calendar">Calendar</string>
 </resources>
