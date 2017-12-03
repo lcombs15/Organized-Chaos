@@ -91,10 +91,39 @@ public class MainMenu extends AppCompatActivity{
         cAdapter.notifyDataSetChanged();
     } //end onResume
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.navigation_toolbar_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        final Intent intent;
+        switch (item.getItemId()) {
+            /* I don't think we need this for now - Lucas
+            case R.id.action_my_feed:
+                intent = new Intent(MainMenu.this, courses_activity.class);
+                startActivity(intent);
+                break;*/
+            case R.id.action_my_courses:
+                intent = new Intent(MainMenu.this, courses_activity.class);
+                startActivity(intent);
+                break;
+            case R.id.action_my_calendar:
+                intent = new Intent(MainMenu.this, CalendarListViewActivity.class);
+                startActivity(intent);
+                break;
+        }
+        return true;
+    }
+
     private void setupActionBar(){
+        /*
         //inflate a toolbar to provide navigation
         Toolbar myToolbar = (Toolbar) findViewById(R.id.navigationToolbar);
-        myToolbar.inflateMenu(R.menu.navigation_toolbar_menu);
+        setSupportActionBar(myToolbar);
         myToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -117,6 +146,7 @@ public class MainMenu extends AppCompatActivity{
                 return true;
             }
         } );
+        */
     }
 
     private void prepopulateDB() {

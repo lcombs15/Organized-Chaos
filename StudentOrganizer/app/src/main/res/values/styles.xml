@@ -7,6 +7,7 @@
         <item name="colorAccent">@color/custom_darkAccent</item>
         <item name="android:windowBackground">@color/custom_darkAccent</item>
         <item name="android:buttonStyle">@style/CustomButtonStyle</item>
+        <item name="actionMenuTextAppearance">@style/ActionBarText</item>
     </style>
 
     <style name="CustomButtonStyle" parent="android:Widget.Button">
@@ -35,6 +36,11 @@
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:minWidth">100dp</item>
         <item name="android:layout_marginRight">10dp</item>
+    </style>
+
+    <style name="ActionBarText" parent="Theme.AppCompat.CompactMenu">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
 </resources>

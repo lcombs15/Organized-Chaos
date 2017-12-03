@@ -16,6 +16,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <!-- Hidden until we have time to implement - Lucas -->
         <ImageView
             android:id="@+id/card_image"
             android:layout_width="wrap_content"
@@ -23,6 +24,7 @@
             android:scaleType="fitCenter"
             android:minHeight="50dp"
             android:minWidth="50dp"
+            android:visibility="gone"
             />
         <TextView
             android:id="@+id/card_title"
