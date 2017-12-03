@@ -30,7 +30,7 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
 
     private Spinner typeSpinner, courseValueSpinner;
     private EditText name, time, descript;
-    private TextView courseLabel;
+    private TextView courseLabel, dateValue;
     private Button enterButton, clearButton;
 
     private DBHelper mydb;
@@ -38,6 +38,7 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
     private static final String idKey = "id";
     private static final String selectTypeText = "Select Type";
     private static final String courseText = "Course";
+    private static final String taskDate = "Date";
     private static final String taskText = "Task";
     private static final String successMsg = "Success";
     private static final String failedMsg = "Failed";
@@ -55,6 +56,7 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
         name = (EditText) findViewById(R.id.nameValue);
         descript = (EditText) findViewById(R.id.descriptionValue);
         courseLabel = (TextView) findViewById(R.id.courseLabel);
+        dateValue = (TextView) findViewById(R.id.selectedDate);
         enterButton = (Button) findViewById(R.id.enterButton);
         clearButton = (Button) findViewById(R.id.clearButton);
 
@@ -86,6 +88,7 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
                 //set new title and description
                 name.setText(result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_TITLE)));
                 descript.setText(result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_DESCRIPTION)));
+                dateValue.setText(result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_DATE)));
 
                 //close cursor
                 if (!result.isClosed()) {
@@ -110,6 +113,7 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
             case R.id.enterButton:
                 String nameText = name.getText().toString();
                 String descriptionText = descript.getText().toString();
+                String dateText = dateValue.getText().toString();
                 if (!nameText.equals("")) {
                     if (selectedID == 0)
                     {
@@ -117,7 +121,7 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
                         //add new activity
                         if (typeToInsert.equals("Task"))
                         {
-                            if (mydb.insertActivity(nameText, descriptionText, "1787-01-22", 1)) {
+                            if (mydb.insertActivity(nameText, descriptionText, dateText, 1)) { //"1787-01-22
                                 Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();

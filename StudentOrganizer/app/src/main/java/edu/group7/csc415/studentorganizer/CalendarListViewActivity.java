@@ -29,7 +29,7 @@ public class CalendarListViewActivity extends AppCompatActivity {
 
         // Adding some stock events, later we should implement events via SQL database query
         CalendarCollection.cal_events_collection = new ArrayList<CalendarCollection>();
-        CalendarCollection.cal_events_collection.add(new CalendarCollection("2017-11-29", "Here's a test event!"));
+        CalendarCollection.cal_events_collection.add(new CalendarCollection("2017-11-29", "Title", "Test Title", "Here's a test event!"));
 
         cal_button = (Button) findViewById(R.id.cal_button);
         cal_button.setOnClickListener(new OnClickListener() {

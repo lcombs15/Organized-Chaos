@@ -1,6 +1,8 @@
 package edu.group7.csc415.studentorganizer;
 
 import android.support.v7.app.AppCompatActivity;
+
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +28,9 @@ public class CalendarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+
+        //CalendarCollection.cal_events_collection = new ArrayList<CalendarCollection>();
+        CalendarCollection.cal_events_collection.add(new CalendarCollection("2017-12-6", "Test", "Test Title", "Here's a test event!"));
 
         // Instantiate Gregorian Calendar and adapter
         cal_monthView = (GregorianCalendar) GregorianCalendar.getInstance();

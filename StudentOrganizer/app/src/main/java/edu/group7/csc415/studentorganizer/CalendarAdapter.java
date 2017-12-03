@@ -197,10 +197,12 @@ public class CalendarAdapter extends BaseAdapter {
         for (int i = 0; i < length; i++) {
             CalendarCollection cal_collection = CalendarCollection.cal_events_collection.get(i);
             String event_date = cal_collection.date;
+            String event_title = cal_collection.title;
+            String event_courseID = cal_collection.courseID;
             String event_message = cal_collection.event_message;
             if (date.equals(event_date)) {
                 Toast.makeText(context, "You have an event on this date: " + event_date, Toast.LENGTH_LONG).show();
-                new AlertDialog.Builder(context).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Date: " + event_date).setMessage("Event: " + event_message).setPositiveButton("OK", new android.content.DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(context).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Course: " + event_courseID + "\nEvent: " + event_title).setMessage("Date: " + event_date + "\nDescription: " + event_message).setPositiveButton("OK", new android.content.DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int x) {
                         act.finish();
                     }
