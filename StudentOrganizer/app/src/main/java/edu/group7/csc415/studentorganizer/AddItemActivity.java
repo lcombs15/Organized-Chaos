@@ -17,10 +17,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -115,58 +113,33 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
                 String descriptionText = descript.getText().toString();
                 String dateText = dateValue.getText().toString();
                 if (!nameText.equals("")) {
-                    if (selectedID == 0)
-                    {
+                    if (selectedID == 0){
                         String typeToInsert = typeSpinner.getSelectedItem().toString();
                         //add new activity
-                        if (typeToInsert.equals("Task"))
-                        {
-                            if (mydb.insertActivity(nameText, descriptionText, dateText, 1)) { //"1787-01-22
-                                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
-                            }
+                        if (typeToInsert.equals("Task")){
+                            onDatabaseSuccess(mydb.insertActivity(nameText, descriptionText, dateText, 1)); //"1787-01-22
                         }
                         //add new course
-                        if (typeToInsert.equals("Course"))
-                        {
-                            if (mydb.insertCourse(nameText)) {
-                                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(this, "Failed. Duplicate name.", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                        else
-                        {
+                        if (typeToInsert.equals("Course")){
+                            onDatabaseSuccess(mydb.insertCourse(nameText),"Failed. Duplicate name.");
+                        }else{
                             Toast.makeText(this, "Please select a type from the dropdown.", Toast.LENGTH_SHORT).show();
                         }
-                    }
-                    else if (selectedID > 0)
-                    {
+                    }else if (selectedID > 0){
                         //update activity
-                        if (mydb.updateActivity(selectedID, nameText, descriptionText, "", 1))
-                        {
-                            Toast.makeText(this, successMsg, Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
-                            Toast.makeText(this, failedMsg, Toast.LENGTH_SHORT).show();
-                        }
+                        onDatabaseSuccess(mydb.updateActivity(selectedID, nameText, descriptionText, "", 1));
                     }
-                }
-                else {
+                }else{
                     Toast.makeText(this, "Please enter a name into the field.", Toast.LENGTH_SHORT).show();
                 } //end if name not entered
                 break; //end case enterButton
             case R.id.clearButton:
-                if (selectedID == 0)
-                {
+                if (selectedID == 0){
                     name.setText("");
                     time.setText("");
                     descript.setText("");
                 }
-                else if (selectedID > 0)
-                {
+                else if (selectedID > 0){
                     //delete activity
                     AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                     alertBuilder.setMessage(R.string.deleteItem).setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
@@ -248,5 +221,22 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
         ArrayAdapter<String> coursesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, courses);
         coursesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         courseValueSpinner.setAdapter(coursesAdapter);
+    }
+
+    //Simple was to let the user know everything went as planned
+    private void onDatabaseSuccess(boolean wasSuccessful){
+        onDatabaseSuccess(wasSuccessful,failedMsg);
+    }
+
+    //The other functions calls this one, just to make the failMessage optional
+    private void onDatabaseSuccess(boolean wasSuccessful, String failMessage) {
+        //If passed true, print success to screen
+        String msg = wasSuccessful? successMsg : failMessage;
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+
+        //We're finished with this activity if everything worked!
+        if(wasSuccessful){
+            finish();
+        }
     }
 } //end AddItemActivity class
