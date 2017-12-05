@@ -212,6 +212,15 @@ public class MainMenu extends AppCompatActivity{
                 //c = new Card("Empty ID", "This entry was deleted. Nothing here.", new Date(), null);
             }
         } //end for
+
+        //Handle no data (new user)
+        if(numRows < 1){
+            Card helpCard = new Card("Welcome!");
+            helpCard.setDescription("Click the plus button to get started!");
+            helpCard.setTaskID(0);
+            helpCard.setDueDate(new Date());
+            CardList.add(helpCard);
+        }
     } //end prepareCardData
 
     private class TaskCardAdapter extends CardAdapter{
