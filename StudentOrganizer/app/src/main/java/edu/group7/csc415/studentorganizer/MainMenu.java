@@ -112,7 +112,7 @@ public class MainMenu extends AppCompatActivity{
                 startActivity(intent);
                 break;
             case R.id.action_my_calendar:
-                intent = new Intent(MainMenu.this, CalendarListViewActivity.class);
+                intent = new Intent(MainMenu.this, CalendarActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -192,29 +192,25 @@ public class MainMenu extends AppCompatActivity{
     private void prepareCardData(){
         int numRows = mydb.numberOfRows();
 
-        for(int i = 1; i <= 100; i++){
+        for(int i = 1; i <= numRows; i++){
             Card c;
-            if (i <= numRows) {
-                Cursor result = mydb.getActivity(i);
-                if (result != null && result.getCount()>0) {
-                    result.moveToFirst();
+            Cursor result = mydb.getActivity(i);
+            if (result != null && result.getCount()>0) {
+                result.moveToFirst();
 
-                    String title = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_TITLE));
-                    String desc = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_DESCRIPTION));
-                    if (!result.isClosed()) {
-                        result.close();
-                    }
-                    c = new Card(title, desc, new Date(), null);
+                int id = result.getInt(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_ID));
+                String title = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_TITLE));
+                String desc = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_DESCRIPTION));
+                if (!result.isClosed()) {
+                    result.close();
                 }
-                else {
-                    numRows += 1;
-                    c = new Card("Empty ID", "This entry was deleted. Nothing here.", new Date(), null);
-                }
+                c = new Card(id, title, desc, new Date(), null);
+                CardList.add(c);
             }
             else {
-                c = new Card("Card #" + i,"Card description goes here!",new Date(),null);
+                numRows += 1;
+                //c = new Card("Empty ID", "This entry was deleted. Nothing here.", new Date(), null);
             }
-            CardList.add(c);
         } //end for
     } //end prepareCardData
 
@@ -273,6 +269,7 @@ public class MainMenu extends AppCompatActivity{
             //Bind all fields in Card XML to data
             holder.title.setText(c.getTitle());
             holder.description.setText(c.getDescription());
+            holder.taskID.setText(Integer.toString(c.getTaskID()));
 
             // TODO fix this to handle null
             holder.icon.setImageResource(R.mipmap.ic_launcher_round);
@@ -289,9 +286,9 @@ public class MainMenu extends AppCompatActivity{
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Toast.makeText(getApplicationContext(),"Changed OnClick",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(),"TaskID: " + c.getTaskID(),Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainMenu.this, AddItemActivity.class);
-                    intent.putExtra("id", position + 1);
+                    intent.putExtra("id", c.getTaskID());
                     startActivity(intent);
                 }
             }); //end OnClickListener

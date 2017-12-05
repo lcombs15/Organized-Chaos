@@ -47,7 +47,7 @@ public abstract class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyVie
     //Inner class, pulls views from XML and stores them for reference in Java objects
     //In a nut shell, this is the onCreate method for an individual CARD
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, description, dueDate;
+        public TextView title, description, dueDate, taskID;
         public ImageView icon;
 
         public MyViewHolder(View view) {
@@ -56,7 +56,7 @@ public abstract class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyVie
             description = (TextView) view.findViewById(R.id.card_detail);
             dueDate = (TextView) view.findViewById(R.id.card_dueDate);
             icon = (ImageView) view.findViewById(R.id.card_image);
-
+            taskID = (TextView) view.findViewById(R.id.card_taskID);
 
         }
     }

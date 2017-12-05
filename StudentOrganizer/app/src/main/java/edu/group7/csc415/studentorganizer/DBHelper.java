@@ -6,9 +6,12 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 
 /**
@@ -18,7 +21,7 @@ import java.util.List;
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "StudentOrganizer.db";
-    public static final int DB_VERSION = 20171230_01; //Year(4) Month(2) Day(2) _ Update Number of day(2)
+    public static final int DB_VERSION = 20171304_02; //Year(4) Month(2) Day(2) _ Update Number of day(2) (month is currently 13 because of a mistype previously.
 
     public static final String ACTIVITIES_TABLE_NAME = "activities";
     public static final String ACTIVITIES_COLUMN_ID = "id";
@@ -121,11 +124,13 @@ public class DBHelper extends SQLiteOpenHelper {
     public int getCourseID(String cname) {
         int courseID = -1;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor result = db.rawQuery("SELECT * FROM " + COURSES_TABLE_NAME + " WHERE " + COURSES_COLUMN_TITLE + "=" + cname, null);
+        Cursor result = db.rawQuery("SELECT * FROM " + COURSES_TABLE_NAME + " WHERE " + COURSES_COLUMN_TITLE + "=" + '"'+cname+'"', null);
         if (result != null && result.getCount()>0) {
             result.moveToFirst();
             courseID = result.getInt(result.getColumnIndex(COURSES_COLUMN_ID));
         }
+        result.close();
+
         return courseID;
     }
 

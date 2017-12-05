@@ -33,6 +33,7 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
 
     private DBHelper mydb;
     private int selectedID = 0;
+    private int coursesLoaded = 0; //Toggles the need to load courses when a task is being edited vs being added.
     private static final String idKey = "id";
     private static final String selectTypeText = "Select Type";
     private static final String courseText = "Course";
@@ -82,13 +83,27 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
                 Cursor result = mydb.getActivity(idValue);
                 result.moveToFirst();
                 selectedID = idValue;
+                String courseName = "None";
 
                 //set new title and description
+                typeSpinner.setSelection(2);
                 name.setText(result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_TITLE)));
                 descript.setText(result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_DESCRIPTION)));
                 dateValue.setText(result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_DATE)));
+                int courseID = result.getInt(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_COURSE_ID));
+                Cursor course = mydb.getCourse(courseID);
+                if (course != null && course.getCount()>0) {
+                    course.moveToFirst();
+                    courseName = course.getString(course.getColumnIndex(DBHelper.COURSES_COLUMN_TITLE));
+                }
+                Toast.makeText(this, "Course Name: " + courseName, Toast.LENGTH_LONG).show();
+                loadCourseTitles(courseName);
+                coursesLoaded = 1;
 
-                //close cursor
+                //close cursors
+                if (!course.isClosed()) {
+                    course.close();
+                }
                 if (!result.isClosed()) {
                     result.close();
                 }
@@ -117,7 +132,13 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
                         String typeToInsert = typeSpinner.getSelectedItem().toString();
                         //add new activity
                         if (typeToInsert.equals("Task")){
-                            onDatabaseSuccess(mydb.insertActivity(nameText, descriptionText, dateText, 1)); //"1787-01-22
+                            int courseID = mydb.getCourseID(courseValueSpinner.getSelectedItem().toString());
+                            if (courseID != -1) {
+                                onDatabaseSuccess(mydb.insertActivity(nameText, descriptionText, dateText, courseID));
+                            }
+                            else {
+                                onDatabaseSuccess(mydb.insertActivity(nameText, descriptionText, dateText, 1));
+                            }
                         }
                         //add new course
                         if (typeToInsert.equals("Course")){
@@ -178,7 +199,7 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
             case taskText:
                 courseLabel.setVisibility(View.VISIBLE);
                 courseValueSpinner.setVisibility(View.VISIBLE);
-                loadCourseTitles();
+                if (coursesLoaded == 0) { loadCourseTitles(); }
                 break;
         }
     }
@@ -221,6 +242,14 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
         ArrayAdapter<String> coursesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, courses);
         coursesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         courseValueSpinner.setAdapter(coursesAdapter);
+    }
+
+    public void loadCourseTitles(String courseName) {
+        List<String> courses = mydb.getAllCourses();
+        ArrayAdapter<String> coursesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, courses);
+        coursesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        courseValueSpinner.setAdapter(coursesAdapter);
+        courseValueSpinner.setSelection(coursesAdapter.getPosition(courseName));
     }
 
     //Simple was to let the user know everything went as planned

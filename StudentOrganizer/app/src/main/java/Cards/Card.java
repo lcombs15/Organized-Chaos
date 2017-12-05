@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class Card {
     //Any of these could potentially be null except for the title
-    private Integer iconID; //Store R.drawable.ID value of an image
+    private Integer iconID, taskID; //Store R.drawable.ID value of an image
     private String title; //NOT NULL
     private String description;
     private Date dueDate;
@@ -22,7 +22,8 @@ public class Card {
         this.setTitle(title);
     }
 
-    public Card(String title, String description, Date dueDate, Integer iconID){
+    public Card(int taskID, String title, String description, Date dueDate, Integer iconID){
+        this.setTaskID(taskID);
         this.setTitle(title);
         this.setDescription(description);
         this.setDueDate(dueDate);
@@ -35,6 +36,12 @@ public class Card {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getTaskID() { return taskID; }
+
+    public void setTaskID(int taskID) {
+        this.taskID = taskID;
     }
 
     public String getTitle() {

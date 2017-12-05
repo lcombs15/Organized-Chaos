@@ -93,7 +93,7 @@ public class course_page_shell extends Fragment {
     private void prepareCardData(){
 
         for(int i = 1; i <= 100; i++){
-            Card c = new Card("Card #" + i,"Card description goes here!",new Date(),null);
+            Card c = new Card(0, "Card #" + i,"Card description goes here!",new Date(),null);
             CardList.add(c);
         }
     }
@@ -118,6 +118,7 @@ public class course_page_shell extends Fragment {
             //Bind data to Card layout
             holder.title.setText(c.getTitle());
             holder.description.setText(c.getDescription());
+            holder.taskID.setText(Integer.toString(c.getTaskID()));
 
             // TODO fix this to handle null
             holder.icon.setImageResource(R.mipmap.ic_launcher_round);

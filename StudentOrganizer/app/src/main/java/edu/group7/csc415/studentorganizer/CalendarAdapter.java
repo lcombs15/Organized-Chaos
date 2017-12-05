@@ -204,7 +204,7 @@ public class CalendarAdapter extends BaseAdapter {
                 Toast.makeText(context, "You have an event on this date: " + event_date, Toast.LENGTH_LONG).show();
                 new AlertDialog.Builder(context).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Course: " + event_courseID + "\nEvent: " + event_title).setMessage("Date: " + event_date + "\nDescription: " + event_message).setPositiveButton("OK", new android.content.DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int x) {
-                        act.finish();
+                        //act.finish();
                     }
                 }).show();
                 break;
