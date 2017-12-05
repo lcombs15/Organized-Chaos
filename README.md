@@ -9,3 +9,5 @@ The purpose of the app is to help college students get organized!
 * Take down quick notes
 * Reminders
 * Timeframe assistance
+
+<a target="_blank" href="https://docs.google.com/presentation/d/1ivWINfGVJydoE27WeyD6ET6RGO1jhuEke1EHKr-Mdkc/edit?usp=sharing">Google Slides Presentation</a>
