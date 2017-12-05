@@ -18,8 +18,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-import edu.group7.csc415.studentorganizer.R;
-import edu.group7.csc415.studentorganizer.CalendarCollection;
 
 /**
  * Created by Matt on 11/29/2017.
@@ -35,8 +33,6 @@ public class CalendarAdapter extends BaseAdapter {
     int maxWeekNum;
     int maxP;
     int calMaxP;
-    int lastWeekDay;
-    int daysLeft;
     int monthLength;
     String itemVal, currentDate;
     DateFormat df;
@@ -107,7 +103,7 @@ public class CalendarAdapter extends BaseAdapter {
 
         // Check if current position matches current date of calendar
         if (day_string.get(pos).equals(currentDate)) {
-            v.setBackgroundColor(Color.CYAN);
+            v.setBackgroundColor(v.getResources().getColor(R.color.themeColorLight,null));
         }
         else {
             v.setBackgroundColor(Color.parseColor("#343434"));
@@ -131,7 +127,7 @@ public class CalendarAdapter extends BaseAdapter {
         if (previousView != null) {
             previousView.setBackgroundColor(Color.parseColor("#343434"));
         }
-        view.setBackgroundColor(Color.CYAN);
+        view.setBackgroundColor(view.getResources().getColor(R.color.themeColorLight,null));
         int length = day_string.size();
         if (length > pos) {
             if (day_string.get(pos).equals(currentDate)) {
