@@ -17,15 +17,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".SettingsActivity"></activity>
-        <activity
-            android:name=".AddItemActivity">
-        </activity>
-        <activity android:name=".settings"
-            android:parentActivityName=".MainMenu"
-            android:label="Settings">
-        </activity>
         <activity android:name=".courses_activity"
             android:parentActivityName=".MainMenu"
             android:label="My Courses">
