@@ -17,7 +17,7 @@
             android:id="@+id/header"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="#78C165"
+            android:background="@color/themeColorLight"
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="10dp" >
