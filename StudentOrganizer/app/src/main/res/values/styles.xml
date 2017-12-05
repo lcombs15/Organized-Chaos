@@ -2,7 +2,7 @@
 
     <style name="CustomAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/CustomActionBarStyle</item>
-        <item name="colorPrimary">@color/custom_colorPrimaryAccent</item>
+        <item name="colorPrimary">@color/themeColorLight</item>
         <item name="colorPrimaryDark">@color/custom_darkAccent</item>
         <item name="colorAccent">@color/custom_darkAccent</item>
         <item name="android:windowBackground">@color/custom_darkAccent</item>
@@ -20,7 +20,6 @@
 
     <style name="CustomActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:titleTextStyle">@style/CustomActionBarTitleTextStyle</item>
-        <item name="android:background">@color/themeColorMellow</item>
     </style>
 
     <style name="CustomActionBarTitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">

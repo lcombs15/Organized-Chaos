@@ -17,6 +17,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AddItemActivity">
+        </activity>
+
         <activity android:name=".courses_activity"
             android:parentActivityName=".MainMenu"
             android:label="My Courses">
@@ -26,7 +30,6 @@
         </activity>
         <activity android:name=".CalendarActivity"
             android:label="My Calendar">
-
         </activity>
 
     </application>

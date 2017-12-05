@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    android:background="@color/themeColorLighter"
     android:orientation="horizontal"
     tools:context="edu.group7.csc415.studentorganizer.MainMenu">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/navigationToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:elevation="4dp"
-        style="@style/CustomActionBarStyle"
-        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view"
@@ -32,6 +23,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:text="+"
+        android:textColor="#000000"
         android:textSize="40sp"
         android:padding="0dp"
         android:minHeight="80dp"
