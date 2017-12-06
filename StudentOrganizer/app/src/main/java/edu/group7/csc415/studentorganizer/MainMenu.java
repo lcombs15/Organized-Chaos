@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -187,6 +188,7 @@ public class MainMenu extends AppCompatActivity{
     }
 
     private void prepareCardData(){
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         int numRows = mydb.numberOfRows();
 
         for(int i = 1; i <= numRows; i++){
@@ -198,10 +200,17 @@ public class MainMenu extends AppCompatActivity{
                 int id = result.getInt(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_ID));
                 String title = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_TITLE));
                 String desc = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_DESCRIPTION));
+                String dateStr = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_DATE));
                 if (!result.isClosed()) {
                     result.close();
                 }
-                c = new Card(id, title, desc, new Date(), null);
+                Date date = new Date();
+                try {
+                    date = df.parse(dateStr);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                c = new Card(id, title, desc, date, null); // new Date()
                 CardList.add(c);
             }
             else {
