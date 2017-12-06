@@ -25,9 +25,6 @@
             android:parentActivityName=".MainMenu"
             android:label="My Courses">
         </activity>
-        <activity android:name=".CalendarListViewActivity"
-            android:label="Calendar Events">
-        </activity>
         <activity android:name=".CalendarActivity"
             android:label="My Calendar">
         </activity>

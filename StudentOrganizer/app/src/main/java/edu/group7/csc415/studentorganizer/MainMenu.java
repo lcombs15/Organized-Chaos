@@ -139,7 +139,7 @@ public class MainMenu extends AppCompatActivity{
                         startActivity(intent);
                         break;
                     case R.id.action_my_calendar:
-                        intent = new Intent(MainMenu.this, CalendarActivity.class); //CalendarListViewActivity
+                        intent = new Intent(MainMenu.this, CalendarActivity.class);
                         startActivity(intent);
                         break;
                 }
@@ -170,21 +170,18 @@ public class MainMenu extends AppCompatActivity{
     private void populateCalendar() {
         int numRows = mydb.numberOfRows();
 
-        for (int i = 1; i <= 100; i++) {
-            if (i <= numRows) {
-                Cursor result = mydb.getActivity(i);
-                if (result != null && result.getCount() > 0) {
-                    result.moveToFirst();
-
-                    String courseID = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_COURSE_ID));
-                    String title = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_TITLE));
-                    String desc = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_DESCRIPTION));
-                    String date = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_DATE));
-                    if (!result.isClosed()) {
-                        result.close();
-                    }
-                    CalendarCollection.cal_events_collection.add(new CalendarCollection(date, courseID, title, desc));
+        for (int i = 1; i <= numRows; i++) {
+            Cursor result = mydb.getActivity(i);
+            if (result != null && result.getCount() > 0) {
+                result.moveToFirst();
+                String courseID = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_COURSE_ID));
+                String title = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_TITLE));
+                String desc = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_DESCRIPTION));
+                String date = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_DATE));
+                if (!result.isClosed()) {
+                    result.close();
                 }
+                CalendarCollection.cal_events_collection.add(new CalendarCollection(date, courseID, title, desc));
             }
         }
     }

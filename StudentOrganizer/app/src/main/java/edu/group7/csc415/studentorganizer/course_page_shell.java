@@ -1,6 +1,8 @@
 package edu.group7.csc415.studentorganizer;
 
 import android.app.Fragment;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,13 +30,14 @@ public class course_page_shell extends Fragment {
     private List<Card> CardList = new ArrayList<>();
     private RecyclerView recyclerView;
     private CardAdapter cAdapter;
+    private DBHelper mydb;
 
-    private String courseTag;
+    private int courseID;
     private String courseName;
-    private String courseLocation;
-    private String courseStart;
-    private String courseEnd;
-    private String courseDays;
+    //private String courseLocation;
+    //private String courseStart;
+    //private String courseEnd;
+    //private String courseDays;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,12 +47,12 @@ public class course_page_shell extends Fragment {
         //Load bundle containing information about the skill that should be displayed.
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            courseTag = bundle.getString("courseTag", "DEFAULT");
+            courseID = bundle.getInt("courseTag", -1);
             courseName = bundle.getString("courseName", "DEFAULT");
-            courseLocation = bundle.getString("courseLocation", "DEFAULT");
-            courseStart = bundle.getString("courseStart", "DEFAULT");
-            courseEnd = bundle.getString("courseEnd", "DEFAULT");
-            courseDays = bundle.getString("courseDays", "DEFAULT");
+            //courseLocation = bundle.getString("courseLocation", "DEFAULT");
+            //courseStart = bundle.getString("courseStart", "DEFAULT");
+            //courseEnd = bundle.getString("courseEnd", "DEFAULT");
+            //courseDays = bundle.getString("courseDays", "DEFAULT");
         }
 
     }
@@ -59,15 +62,17 @@ public class course_page_shell extends Fragment {
         // inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_course_page, container, false);
 
+        mydb = new DBHelper(getActivity());
+
         // Populate widgets with the data retrieved from bundle that is related to a specific skill
         TextView name = (TextView) view.findViewById(R.id.course_label);
-        TextView location = (TextView) view.findViewById(R.id.course_location_label);
-        TextView startTime = (TextView) view.findViewById(R.id.course_start_time_label);
-        TextView endTime = (TextView) view.findViewById(R.id.course_end_time_label);
+        //TextView location = (TextView) view.findViewById(R.id.course_location_label);
+        //TextView startTime = (TextView) view.findViewById(R.id.course_start_time_label);
+        //TextView endTime = (TextView) view.findViewById(R.id.course_end_time_label);
         name.setText(courseName);
-        location.setText(courseLocation);
-        startTime.setText(courseStart);
-        endTime.setText(courseEnd);
+        //location.setText(courseLocation);
+        //startTime.setText(courseStart);
+        //endTime.setText(courseEnd);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.course_tasks_recycleView);
         cAdapter = new TaskCardAdapter(CardList);
@@ -92,9 +97,26 @@ public class course_page_shell extends Fragment {
 
     private void prepareCardData(){
 
-        for(int i = 1; i <= 100; i++){
-            Card c = new Card(0, "Card #" + i,"Card description goes here!",new Date(),null);
-            CardList.add(c);
+        int numRows = mydb.numberOfRows();
+        for (int i = 1; i <= numRows; i++) {
+            Card c;
+            Cursor result = mydb.getActivity(i);
+            if (result != null && result.getCount() > 0) {
+                result.moveToFirst();
+                if (result.getInt(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_COURSE_ID)) == courseID) {
+                    int id = result.getInt(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_ID));
+                    String title = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_TITLE));
+                    String desc = result.getString(result.getColumnIndex(DBHelper.ACTIVITIES_COLUMN_DESCRIPTION));
+                    if (!result.isClosed()) {
+                        result.close();
+                    }
+                    c = new Card(id, title, desc, new Date(), null);
+                    CardList.add(c);
+                }
+            }
+            else {
+                numRows += 1;
+            }
         }
     }
 
@@ -135,7 +157,10 @@ public class course_page_shell extends Fragment {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity(),"TODO: Add On Click....." + c.getTitle().toString(),Toast.LENGTH_LONG).show();
+                    /*Toast.makeText(getActivity(),"TaskID:" + c.getTitle().toString(),Toast.LENGTH_LONG).show();*/
+                    Intent intent = new Intent(getActivity(), AddItemActivity.class);
+                    intent.putExtra("id", c.getTaskID());
+                    startActivity(intent);
                 }
             }); //end OnClickListener
         } //end setOnCLickListener

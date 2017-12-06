@@ -10,6 +10,7 @@
     <color name="themeColorDark">#000000</color>
 
     <color name="custom_darkAccent">#494949</color>
+    <color name="custom_lightAccent">#8F8F8F</color>
 
 
 </resources>

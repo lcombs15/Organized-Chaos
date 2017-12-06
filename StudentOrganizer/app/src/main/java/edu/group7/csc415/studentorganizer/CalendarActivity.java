@@ -45,7 +45,7 @@ public class CalendarActivity extends AppCompatActivity {
         previous.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                setPreviousMonth();
+                setPrevMonth();
                 refreshCalendar();
             }
         });
@@ -72,7 +72,7 @@ public class CalendarActivity extends AppCompatActivity {
 
                 // Check if we need previous month or next month
                 if ((gridVal > 10) && (position < 8)) {
-                    setPreviousMonth();
+                    setPrevMonth();
                     refreshCalendar();
                 }
                 else if ((gridVal < 7) && (position > 28)) {
@@ -96,7 +96,7 @@ public class CalendarActivity extends AppCompatActivity {
         }
     }
 
-    protected void setPreviousMonth() {
+    protected void setPrevMonth() {
         if (cal_monthView.get(GregorianCalendar.MONTH) == cal_monthView.getActualMinimum(GregorianCalendar.MONTH)) {
             cal_monthView.set((cal_monthView.get(GregorianCalendar.YEAR) - 1), cal_monthView.getActualMaximum(GregorianCalendar.MONTH), 1);
         }

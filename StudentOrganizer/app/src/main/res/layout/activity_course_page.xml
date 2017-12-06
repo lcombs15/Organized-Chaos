@@ -3,17 +3,26 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:orientation="vertical"
         tools:context="edu.group7.csc415.studentorganizer.MainMenu">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="12dp"
+            android:orientation="vertical"
             android:layout_gravity="center"
-            android:id="@+id/course_name_label_layout">
+            android:id="@+id/course_name_label_layout"
+            android:background="@color/custom_lightAccent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Course Name:"
+                android:textColor="#FFFFFF"
+                android:padding="10dp"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -21,34 +30,28 @@
                 android:id="@+id/course_label"
                 android:textColor="#FFFFFF"
                 android:text="@string/course_name"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="30dp"
                 android:textSize="18sp"
                 android:layout_marginEnd="32dp"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/edit_course_name_button"
-                android:text="@string/edit_course_name_buttonLabel"
-                android:textSize="16sp"
-                android:minWidth="48dp"
-                android:maxWidth="64dp"
-                android:minHeight="48dp"
-                android:maxHeight="64dp"/>
-
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <!--<LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
             android:orientation="horizontal"
             android:id="@+id/course_time_label_layout"
-            android:layout_below="@+id/course_name_label_layout">
+            android:layout_below="@+id/course_name_label_layout"
+            android:background="@color/custom_lightAccent">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/time_label"
+                android:padding="10dp"
                 android:textSize="18sp" />
 
             <TextView
@@ -72,17 +75,18 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
             android:orientation="horizontal"
             android:id="@+id/course_location_layout"
-            android:layout_below="@id/course_time_label_layout">
+            android:layout_below="@id/course_time_label_layout"
+            android:background="@color/custom_lightAccent">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/location_label"
+                android:padding="10dp"
                 android:textSize="18sp"/>
 
             <TextView
@@ -94,17 +98,19 @@
                 android:id="@+id/course_location_label"
                 android:text="@string/course_location_editText"/>
 
-        </LinearLayout>
+        </LinearLayout>-->
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tasks_label"
             android:text="@string/tasks_label"
+            android:textColor="#FFFFFF"
             android:textSize="18sp"
-            android:layout_marginStart="12dp"
+            android:padding="10dp"
             android:layout_marginBottom="16dp"
-            android:layout_below="@id/course_location_layout"/>
+            android:layout_below="@id/course_name_label_layout"
+            android:background="@color/custom_lightAccent"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/course_tasks_recycleView"
