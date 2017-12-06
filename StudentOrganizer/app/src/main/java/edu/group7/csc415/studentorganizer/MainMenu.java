@@ -223,48 +223,7 @@ public class MainMenu extends AppCompatActivity{
         }
     } //end prepareCardData
 
-    private class TaskCardAdapter extends CardAdapter{
-        /*
-            To prevent code duplication the CardAdapter class is abstract. To
-            change the onClick method of the cards, make another inner class like this one,
-            implement a constructor and override the onBindViewHolder
-        */
-
-        // TaskCardAdapter constructor
-        public TaskCardAdapter(List<Card> CardsList) {
-            super(CardsList);
-        }
-
-        @Override
-        public void onBindViewHolder(MyViewHolder holder, int position) {
-        //Must be final for onClick to access
-            final Card c = super.CardsList.get(position);
-
-            //Bind data to Card layout
-            holder.title.setText(c.getTitle());
-            holder.description.setText(c.getDescription());
-
-            // TODO fix this to handle null
-            holder.icon.setImageResource(R.mipmap.ic_launcher_round);
-
-            //Handle null string in DATE_FORMAT
-            try {
-                SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy h:mm");
-                holder.dueDate.setText(DATE_FORMAT.format(c.getDueDate()).toString());
-            }
-            catch (Exception e){
-                holder.dueDate.setText(errorMsg);
-            }
-
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-                public void onClick(View v) {
-                }
-            });
-        }
-    }
-
-    private class TaskCardOnClickAdapter extends TaskCardAdapter{
+    private class TaskCardOnClickAdapter extends CardAdapter{
 
         public TaskCardOnClickAdapter(List<Card> CardsList) {
             super(CardsList);

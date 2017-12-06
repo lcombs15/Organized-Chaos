@@ -1,17 +1,11 @@
 package Cards;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.text.SimpleDateFormat;
 import java.util.List;
 import edu.group7.csc415.studentorganizer.R;
 
@@ -20,7 +14,7 @@ import edu.group7.csc415.studentorganizer.R;
  *
  * This CardAdapter is a little hard to understand, but I'll try the best I can
  *
- * Basically this is where data held in our Card wrapper class meets XML
+ * This is where data held in our Card wrapper class meets XML
  */
 public abstract class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> {
 

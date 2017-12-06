@@ -168,7 +168,7 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
                         public void onClick(DialogInterface dialogInterface, int i) {
                             mydb.deleteActivity(selectedID);
                             Toast.makeText(getApplicationContext(), deleteSuccessMsg, Toast.LENGTH_SHORT).show();
-
+                            finish();
                         }
                     }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                         @Override
