@@ -181,8 +181,7 @@ public class CalendarAdapter extends BaseAdapter {
             if (lengthDupe > pos) {
                 if (day_string.get(pos).equals(date)) {
                     v.setBackgroundColor(Color.parseColor("#343434"));
-                    //v.setBackgroundResource(R.drawable.rounded_calendar_item);
-                    text.setTextColor(Color.WHITE);
+                    text.setTextColor(Color.parseColor("#FF9505"));
                 }
             }
         }
