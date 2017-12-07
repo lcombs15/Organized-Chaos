@@ -1,27 +1,15 @@
 package edu.group7.csc415.studentorganizer;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.ContextThemeWrapper;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Matt on 11/8/2017.
@@ -62,10 +50,6 @@ public class course_list_activity extends Fragment {
             }
         }
 
-
-        // Load json file data using Gson library
-        //data = gson.fromJson(loadGSON(), new TypeToken<List<Course>>(){}.getType());
-        //Create skills adapter to help populate ListView with skills
         CourseAdapter adapter = new CourseAdapter(getActivity(), data);
         list.setAdapter(adapter);
 
@@ -81,10 +65,6 @@ public class course_list_activity extends Fragment {
                 Bundle info = new Bundle();
                 info.putInt("courseTag", data.get(position).getID());
                 info.putString("courseName", data.get(position).getName());
-                //info.putString("courseLocation", data.get(position).getLocation());
-                //info.putString("courseStart", data.get(position).getStart());
-                //info.putString("courseEnd", data.get(position).getEnd());
-                //info.putString("courseDays", data.get(position).getDays());
                 nextFragment.setArguments(info);
                 // Replace current fragment with the skill details fragment containing the information of the selected skill
                 transaction.replace(R.id.activity_courses_layout, nextFragment);
@@ -95,28 +75,5 @@ public class course_list_activity extends Fragment {
 
         return view;
     }
-
-    //loadGSON() reads json file for information needed to populate skills list and skill details fragments
-    /*private String loadGSON() {
-        String json = null;
-        AssetManager am = getContext().getAssets();
-
-        try
-        {
-            // Read skills.json for necessary data
-            InputStream is = am.open("courses.json");
-            int size = is.available();
-            byte[] buff = new byte[size];
-            is.read(buff);
-            is.close();
-            json = new String(buff, "UTF-8");
-        } catch (IOException e) {
-            // If errors occur, print the stack trace
-            e.printStackTrace();
-        }
-
-        // Return the final string of data
-        return json;
-    }*/
 
 }

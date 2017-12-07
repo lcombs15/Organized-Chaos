@@ -8,16 +8,10 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.Toast;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,7 +40,6 @@ public class MainMenu extends AppCompatActivity{
 
         //set view and widgets
         setContentView(R.layout.main_menu_activity);
-        setupActionBar();
 
         //set up RecyclerView
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
@@ -94,6 +87,7 @@ public class MainMenu extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        //Setup toolbar for Calendar & courses
         getMenuInflater().inflate(R.menu.navigation_toolbar_menu, menu);
 
         return true;
@@ -103,11 +97,6 @@ public class MainMenu extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         final Intent intent;
         switch (item.getItemId()) {
-            /* I don't think we need this for now - Lucas
-            case R.id.action_my_feed:
-                intent = new Intent(MainMenu.this, courses_activity.class);
-                startActivity(intent);
-                break;*/
             case R.id.action_my_courses:
                 intent = new Intent(MainMenu.this, courses_activity.class);
                 startActivity(intent);
@@ -119,54 +108,6 @@ public class MainMenu extends AppCompatActivity{
         }
         return true;
     }
-
-    private void setupActionBar(){
-        /*
-        //inflate a toolbar to provide navigation
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.navigationToolbar);
-        setSupportActionBar(myToolbar);
-        myToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                //launch the appropriate activity when an item is clicked
-                final Intent intent;
-                switch (item.getItemId()) {
-                    case R.id.action_my_feed:
-                        intent = new Intent(MainMenu.this, courses_activity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.action_my_courses:
-                        intent = new Intent(MainMenu.this, courses_activity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.action_my_calendar:
-                        intent = new Intent(MainMenu.this, CalendarActivity.class);
-                        startActivity(intent);
-                        break;
-                }
-                return true;
-            }
-        } );
-        */
-    }
-
-    private void prepopulateDB() {
-        boolean firstEntries = savedValues.getBoolean(firstEntryKey, false);
-        if (firstEntries == false) {
-            mydb.insertCourse("CSC 402");
-            mydb.insertCourse("CSC 415");
-            if (true){//mydb.insertActivity("Text Lucas", "If this worked, text Lucas that SQLite is working.", 1)) {
-                Toast.makeText(this, "done", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                Toast.makeText(this, "not working", Toast.LENGTH_SHORT).show();
-            }
-            savedValues.edit().putBoolean(firstEntryKey, true).apply();
-        }
-        else {
-            savedValues.edit().putBoolean(firstEntryKey, true).apply();
-        }
-    } //end prepopulateDB
 
     private void populateCalendar() {
         int numRows = mydb.numberOfRows();
@@ -210,7 +151,7 @@ public class MainMenu extends AppCompatActivity{
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                c = new Card(id, title, desc, date, null); // new Date()
+                c = new Card(id, title, desc, date); // new Date()
                 CardList.add(c);
             }
             else {
@@ -244,9 +185,6 @@ public class MainMenu extends AppCompatActivity{
             holder.title.setText(c.getTitle());
             holder.description.setText(c.getDescription());
             holder.taskID.setText(Integer.toString(c.getTaskID()));
-
-            // TODO fix this to handle null
-            holder.icon.setImageResource(R.mipmap.ic_launcher_round);
 
             //Don't error out if DATE_FORMAT is passed a null string
             try {

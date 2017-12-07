@@ -108,7 +108,7 @@ public class AddItemActivity extends AppCompatActivity implements AdapterView.On
                     result.close();
                 }
 
-                //set text on buttons for commiting or cancelling change
+                //set text on buttons for committing or cancelling change
                 enterButton.setText(R.string.update);
                 clearButton.setText(R.string.delete);
             }//end of editing value

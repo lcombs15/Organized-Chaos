@@ -22,7 +22,7 @@ import Cards.Card;
 import Cards.CardAdapter;
 
 /**
- * Created by Matt on 11/22/2017.
+ * Created by Matt on 11/02/2017.
  */
 
 public class course_page_shell extends Fragment {
@@ -34,10 +34,6 @@ public class course_page_shell extends Fragment {
 
     private int courseID;
     private String courseName;
-    //private String courseLocation;
-    //private String courseStart;
-    //private String courseEnd;
-    //private String courseDays;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,10 +45,6 @@ public class course_page_shell extends Fragment {
         if (bundle != null) {
             courseID = bundle.getInt("courseTag", -1);
             courseName = bundle.getString("courseName", "DEFAULT");
-            //courseLocation = bundle.getString("courseLocation", "DEFAULT");
-            //courseStart = bundle.getString("courseStart", "DEFAULT");
-            //courseEnd = bundle.getString("courseEnd", "DEFAULT");
-            //courseDays = bundle.getString("courseDays", "DEFAULT");
         }
 
     }
@@ -66,13 +58,7 @@ public class course_page_shell extends Fragment {
 
         // Populate widgets with the data retrieved from bundle that is related to a specific skill
         TextView name = (TextView) view.findViewById(R.id.course_label);
-        //TextView location = (TextView) view.findViewById(R.id.course_location_label);
-        //TextView startTime = (TextView) view.findViewById(R.id.course_start_time_label);
-        //TextView endTime = (TextView) view.findViewById(R.id.course_end_time_label);
         name.setText(courseName);
-        //location.setText(courseLocation);
-        //startTime.setText(courseStart);
-        //endTime.setText(courseEnd);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.course_tasks_recycleView);
         cAdapter = new TaskCardAdapter(CardList);
@@ -110,7 +96,7 @@ public class course_page_shell extends Fragment {
                     if (!result.isClosed()) {
                         result.close();
                     }
-                    c = new Card(id, title, desc, new Date(), null);
+                    c = new Card(id, title, desc, new Date());
                     CardList.add(c);
                 }
             }
@@ -157,7 +143,6 @@ public class course_page_shell extends Fragment {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    /*Toast.makeText(getActivity(),"TaskID:" + c.getTitle().toString(),Toast.LENGTH_LONG).show();*/
                     Intent intent = new Intent(getActivity(), AddItemActivity.class);
                     intent.putExtra("id", c.getTaskID());
                     startActivity(intent);
