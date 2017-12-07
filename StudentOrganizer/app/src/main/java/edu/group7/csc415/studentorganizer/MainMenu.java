@@ -198,7 +198,6 @@ public class MainMenu extends AppCompatActivity{
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Toast.makeText(getApplicationContext(),"TaskID: " + c.getTaskID(),Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainMenu.this, AddItemActivity.class);
                     intent.putExtra("id", c.getTaskID());
                     startActivity(intent);
