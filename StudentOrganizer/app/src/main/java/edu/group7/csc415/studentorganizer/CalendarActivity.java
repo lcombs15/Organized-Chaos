@@ -51,13 +51,17 @@ public class CalendarActivity extends AppCompatActivity {
         });
 
         ImageButton next = (ImageButton) findViewById(R.id.iButton_next);
-        previous.setOnClickListener(new OnClickListener() {
+        next.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 setNextMonth();
                 refreshCalendar();
             }
         });
+
+
+
+
 
         // Now set up GridView to populate create and populate the calendar
         GridView grid = (GridView) findViewById(R.id.gridview_calendar);
