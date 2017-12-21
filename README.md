@@ -2,7 +2,7 @@
 "Organized Chaos" was our group's name of choice in CSC-415!
 
 ## About the App
-The app is generically called "Student Organizer", although, this could change.
+The app is generically called "Student Organizer", although, this could change. This project was created over the course of a 16 week semester.
 
 The purpose of the app is to help college students get organized! (And for a grade in CSC415!)
 * Keep track of due dates
