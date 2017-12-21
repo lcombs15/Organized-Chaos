@@ -9,3 +9,5 @@ The purpose of the app is to help college students get organized! (And for a gra
 * Keep track of classes
 
 <a target="_blank" href="https://docs.google.com/presentation/d/1ivWINfGVJydoE27WeyD6ET6RGO1jhuEke1EHKr-Mdkc/edit?usp=sharing">Google Slides Presentation</a>
+
+<img src="https://github.com/lcombs15/Organized-Chaos/blob/master/Screenshots/Week16%20(1).png?raw=true"/>
